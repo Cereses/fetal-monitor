@@ -1,0 +1,38 @@
+# ============================================================
+#  Home Fetal Monitoring System — .gitignore
+# ============================================================
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+
+# ---- Virtual environments ----
+.venv/
+venv/
+env/
+ENV/
+
+# ---- Raw PhysioNet / waveform datasets ----
+# Do NOT commit raw data: it's large, and it's better practice to
+# document the download (you already do, via PhysioNet slugs) than
+# to redistribute it. Adjust folder names to match your layout.
+data/
+datasets/
+raw/
+*.dat
+*.hea
+*.atr
+*.edf
+*.mat
+
+# NOTE: *.csv is deliberately NOT ignored — your results/ CSVs and
+# any small test vectors stay tracked. Same for notes/*.md.
+
+# ---- OS / editor cruft ----
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp

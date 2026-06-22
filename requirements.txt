@@ -1,0 +1,12 @@
+# Starter dependencies — see note below about pinning.
+numpy
+scipy
+wfdb
+neurokit2
+scikit-learn
+pandas
+matplotlib
+
+# Tip: once your environment is settled, replace this with exact pinned
+# versions so collaborators reproduce your results:
+#     pip freeze > requirements.txt
