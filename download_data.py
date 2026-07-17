@@ -2,7 +2,7 @@
 import os
 import wfdb
 
-DATASET = 'bidmc'
+DATASET = 'mitdb'
 DL_DIR = os.path.join('data', DATASET)
 
 if __name__ == '__main__':
