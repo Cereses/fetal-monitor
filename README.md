@@ -7,7 +7,7 @@ integration on an ESP32.
 
 > ⚠️ **Not a clinical device.** This is a university capstone prototype for
 > research and educational purposes only. It is not validated, certified, or
-> intended for medical diagnosis, monitoring, or patient care.
+> intended for medical diagnosis, monitoring, or patient care(at least not yet).
 
 ## Signal → Sensor mapping
 
@@ -70,10 +70,9 @@ integration. See `notes/` for phase summaries and `results/` for frozen
 evaluation outputs.
 
 ## Team
+The JAD Trio
 
-- _(add team members and component ownership)_
 
 ## License
 
-_(add a license. Note that PhysioNet dataset terms apply to any data you
-download — verify each dataset's terms before redistributing.)_
+
