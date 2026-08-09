@@ -38,3 +38,9 @@ Thumbs.db
 *.swp
 
 results/*.npz
+
+# ---- Arduino / hardware bring-up ----
+hardware/**/build/
+hardware/**/*.bin
+*_raw500.csv
+

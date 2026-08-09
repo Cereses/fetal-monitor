@@ -1,0 +1,3 @@
+label,empty_mean,empty_std,onset_mean,settled_mean,settled_std,creep_cps,creep_total,creep_pct,noise_std,r_ohms,headroom,in_window
+phone_x1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,inf,4095.0,False
+books_x7,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,inf,4095.0,False

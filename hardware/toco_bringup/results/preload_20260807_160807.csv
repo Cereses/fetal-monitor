@@ -1,0 +1,2 @@
+label,empty_mean,empty_std,onset_mean,settled_mean,settled_std,creep_cps,creep_total,creep_pct,noise_std,r_ohms,headroom,in_window
+phone_x1,0.0,0.0,0.0,0.0,0.0,6.721732050869346e-06,0.0006711918322075077,0.06711918322075076,0.07160477074573149,inf,4095.0,False
