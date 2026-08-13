@@ -1,0 +1,35 @@
+{
+  "created_utc": "2026-08-13T22:53:38.960962+00:00",
+  "capture_file": "raw_ecg_capture_20260729_180936.csv",
+  "capture_sha256": "1caf85070d638014dcb6a90081daedcc6d45cb084225507bc93322f783bfb597",
+  "annotation_file": "raw_ecg_capture_20260729_180936_annotations_frozen.csv",
+  "annotation_sha256": "db909bfafb92bbd41d9492c25b13d3dfe7e65e5f55a2ec76e19901001cfd7fff",
+  "n_reference_beats": 31,
+  "n_manual_entries": 0,
+  "manual_snaps": [],
+  "fs_hz": 250.0,
+  "sample_period_ms": 4.0,
+  "proposal_method": "centre of contiguous ADC==4095 saturation runs",
+  "proposal_independence": "shares no filter, threshold or parameter with 02_qrs_detect.py",
+  "centre_convention": {
+    "sample": "floor(plateau centre) \u2014 used for match_beats() only",
+    "sample_exact": "true float centre \u2014 used for timing error only",
+    "n_offset_beats": 10,
+    "mean_offset_samples": 0.16129032258064516,
+    "mean_offset_ms": 0.6451612903225806
+  },
+  "amendments": [
+    {
+      "when": "before any detector run on this capture",
+      "change": "centre changed from int(round(mean)) to a float sample_exact plus floor-based integer sample",
+      "reason": "int(round()) is banker's rounding, so an even-width plateau resolved to the nearest EVEN index. The reference position depended on the parity of the sample index, an accident of capture start time. Affected 10/31 plateaus on capture 180936: 5 up, 5 down, net 0.000 ms by coincidence rather than design. Irrelevant to Se/PPV (tolerance 37.5 samples) but the same order as the pre-registered +/-1 sample timing prediction.",
+      "frozen_code_modified": "none \u2014 03_qrs_evaluate.py untouched"
+    }
+  ],
+  "pre_registration": {
+    "capture": "raw_ecg_capture_20260729_180936.csv, full 30 s, no exclusions",
+    "scoring": "+/-150 ms tolerance, greedy one-to-one matching, imported from 03_qrs_evaluate.py",
+    "prediction": "signed timing error small, within about +/-1 sample; bandpass smooths the 12 ms plateau so the earlier predicted early bias should be weak or absent"
+  },
+  "frozen_before_detector_run": true
+}
