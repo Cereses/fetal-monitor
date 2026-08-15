@@ -1,0 +1,22 @@
+{
+  "capture": "raw_ecg_capture_20260729_180936.csv",
+  "capture_sha256": "1caf85070d638014dcb6a90081daedcc6d45cb084225507bc93322f783bfb597",
+  "annotation_sha256": "db909bfafb92bbd41d9492c25b13d3dfe7e65e5f55a2ec76e19901001cfd7fff",
+  "detector_file": "C:\\Users\\Jaydenn\\Documents\\fetal-monitor\\02_qrs_detect.py",
+  "detector_sha256": "71eb60e950f64edd96e4e889c80d65fbf453f38273c85829082dab91ef02b82a",
+  "evaluator_sha256": "a768b352f89b7efd97190b62b2fdd5d3de205ffc329bbfc741b69b0341892e72",
+  "fs_hz": 250.0,
+  "tolerance_ms": 150.0,
+  "reference_beats": 31,
+  "detected": 31,
+  "TP": 31,
+  "FP": 0,
+  "FN": 0,
+  "sensitivity": 1.0,
+  "PPV": 1.0,
+  "DER": 0.0,
+  "timing_correction_mode": "exact (per beat)",
+  "timing_signed_mean_ms": 1.1612903225806452,
+  "timing_mae_ms": 1.1612903225806452,
+  "prediction_held": true
+}
