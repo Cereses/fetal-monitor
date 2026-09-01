@@ -1,0 +1,51 @@
+{
+  "segment_file": "stimulus\\fetal_PCG_p21_GW_39_60s_60s_native333.npy",
+  "record": "fetal_PCG_p21_GW_39",
+  "full_record_validation": {
+    "n_windows": 1198,
+    "n_high": 1167,
+    "high_conf_fraction": 0.9741235392320534,
+    "estimated_bpm": 136.84931506849315,
+    "mean_confidence": 0.7630745554720815,
+    "max_confidence": 0.9088892148587288,
+    "bpm_std_high": 5.429461786529974,
+    "reliable": true,
+    "verdict": "OK",
+    "used_fallback_median": false
+  },
+  "run_A": {
+    "n_windows": 56,
+    "n_high": 56,
+    "high_conf_fraction": 1.0,
+    "estimated_bpm": 134.09395973154363,
+    "mean_confidence": 0.8386895694881714,
+    "max_confidence": 0.8897024859541647,
+    "bpm_std_high": 2.4234778631950644,
+    "reliable": true,
+    "verdict": "OK",
+    "used_fallback_median": false,
+    "label": "RUN A (native 333 Hz)",
+    "fs": 333.0
+  },
+  "run_B": {
+    "n_windows": 56,
+    "n_high": 56,
+    "high_conf_fraction": 1.0,
+    "estimated_bpm": 133.92857142857142,
+    "mean_confidence": 0.8404610290857341,
+    "max_confidence": 0.8900443669138784,
+    "bpm_std_high": 2.4598177226018665,
+    "reliable": true,
+    "verdict": "OK",
+    "used_fallback_median": false,
+    "label": "RUN B (resampled 500 Hz)",
+    "fs": 500.0
+  },
+  "threshold": 0.45,
+  "record_ok_fraction": 0.5,
+  "predictions": {
+    "bpm_tol": 1.0,
+    "conf_tol": 0.1,
+    "windows": 56
+  }
+}

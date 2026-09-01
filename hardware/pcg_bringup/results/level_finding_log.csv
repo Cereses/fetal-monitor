@@ -1,0 +1,2 @@
+timestamp,note,n,fs,bias,rms,peak_excursion,crest_factor,snr_db,vmin,vmax,n_at_min,n_at_max,verdict,capture
+20260901_124732,"volume 40%, trimpot factory",10002,500.0,1909.8,66.4,575.0,8.66,24.4,1335,2364,1,1,GOOD,pcg_level_20260901_124732.csv

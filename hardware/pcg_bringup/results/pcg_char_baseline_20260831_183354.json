@@ -1,0 +1,110 @@
+{
+  "capture": "pcg_char_baseline_20260831_183354",
+  "header": "# pcg_capture max4466 pin=39 fs=500 att=11db",
+  "port": "COM8",
+  "tag": "baseline",
+  "requested_s": 90.0,
+  "malformed_lines": 0,
+  "timing_full": {
+    "label": "full",
+    "n": 45005,
+    "duration_s": 90.007998,
+    "fs_achieved": 500.0000111101238,
+    "fs_error_pct": 2.2220247615223343e-06,
+    "dt_mean_us": 1999.999955559506,
+    "dt_std_us": 0.6053930570409967,
+    "dt_min_us": 1998.0,
+    "dt_max_us": 2001.0,
+    "dt_p99_us": 2001.0,
+    "n_gaps_2x": 0
+  },
+  "signal_full": {
+    "label": "full",
+    "mean": 1911.0510387734696,
+    "std": 3.8185071514431517,
+    "min": 1843,
+    "max": 1963,
+    "p2p": 120,
+    "n_distinct": 94
+  },
+  "spectrum_full": {
+    "label": "full",
+    "inband_pct_of_total": 70.07489943007008,
+    "mains": [
+      {
+        "hz": 50.0,
+        "db_over_bg": 1.5533359056244,
+        "pct_of_inband": 1.051558744514292,
+        "verdict": "not detected"
+      },
+      {
+        "hz": 100.0,
+        "db_over_bg": 0.6157277059191932,
+        "pct_of_inband": 0.9725546161952086,
+        "verdict": "not detected"
+      },
+      {
+        "hz": 150.0,
+        "db_over_bg": 1.7643959831160556,
+        "pct_of_inband": 1.08339079452307,
+        "verdict": "not detected"
+      }
+    ],
+    "mains_total_pct_inband": 3.1075041552325704,
+    "peak_inband_hz": 47.80000106212784
+  },
+  "timing_tail": {
+    "label": "last 80s",
+    "n": 40004,
+    "duration_s": 80.005999,
+    "fs_achieved": 500.00000624953134,
+    "fs_error_pct": 1.2499062677306939e-06,
+    "dt_mean_us": 1999.9999750018749,
+    "dt_std_us": 0.6048533382630754,
+    "dt_min_us": 1999.0,
+    "dt_max_us": 2001.0,
+    "dt_p99_us": 2001.0,
+    "n_gaps_2x": 0
+  },
+  "signal_tail": {
+    "label": "last 80s",
+    "mean": 1911.0086491350864,
+    "std": 3.783714251318133,
+    "min": 1843,
+    "max": 1955,
+    "p2p": 112,
+    "n_distinct": 93
+  },
+  "spectrum_tail": {
+    "label": "last 80s",
+    "inband_pct_of_total": 70.04257135764556,
+    "mains": [
+      {
+        "hz": 50.0,
+        "db_over_bg": 2.009477171514213,
+        "pct_of_inband": 1.1396174244082873,
+        "verdict": "not detected"
+      },
+      {
+        "hz": 100.0,
+        "db_over_bg": 0.5758706841307981,
+        "pct_of_inband": 0.985040207577363,
+        "verdict": "not detected"
+      },
+      {
+        "hz": 150.0,
+        "db_over_bg": 1.8692444022028867,
+        "pct_of_inband": 1.0736443580869919,
+        "verdict": "not detected"
+      }
+    ],
+    "mains_total_pct_inband": 3.1983019900726424,
+    "peak_inband_hz": 47.800000597455195
+  },
+  "preregistered": {
+    "mains_detect_db": 6.0,
+    "mains_dominant_db": 20.0,
+    "fs_tolerance_pct": 0.1,
+    "settle_split_s": 10.0
+  }
+}

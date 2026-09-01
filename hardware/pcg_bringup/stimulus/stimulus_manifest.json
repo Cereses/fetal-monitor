@@ -1,0 +1,59 @@
+{
+  "fpcg": {
+    "record": "fetal_PCG_p21_GW_39",
+    "fs_native": 333.0,
+    "declared_units": "mV",
+    "record_len_s": 1201.2042042042042,
+    "start_s": 60.0,
+    "dur_s": 60.0,
+    "i0": 19980,
+    "i1": 39960,
+    "n_samples": 19980,
+    "n_nonfinite": 0,
+    "sig_name": "PCG",
+    "n_channels": 1,
+    "playback_fs": 44100,
+    "up": 4900,
+    "down": 37,
+    "dur_in_s": 60.0,
+    "dur_out_s": 60.0
+  },
+  "tones": {
+    "layout": [
+      {
+        "hz": 25,
+        "start_s": 1.0,
+        "end_s": 4.0
+      },
+      {
+        "hz": 50,
+        "start_s": 5.0,
+        "end_s": 8.0
+      },
+      {
+        "hz": 75,
+        "start_s": 9.0,
+        "end_s": 12.0
+      },
+      {
+        "hz": 100,
+        "start_s": 13.0,
+        "end_s": 16.0
+      },
+      {
+        "hz": 150,
+        "start_s": 17.0,
+        "end_s": 20.0
+      },
+      {
+        "hz": 200,
+        "start_s": 21.0,
+        "end_s": 24.0
+      }
+    ],
+    "tone_s": 3.0,
+    "gap_s": 1.0,
+    "fade_s": 0.05,
+    "total_s": 25.0
+  }
+}

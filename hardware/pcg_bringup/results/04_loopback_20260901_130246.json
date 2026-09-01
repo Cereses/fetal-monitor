@@ -1,0 +1,52 @@
+{
+  "capture": "captures\\pcg_runC_20260901_130246.csv",
+  "note": "volume 40%, trimpot factory, mic at sub port",
+  "header": "# pcg_capture max4466 pin=39 fs=500 att=11db",
+  "fs_achieved": 500.0,
+  "malformed": 0,
+  "trim_s": 60.0,
+  "reference_run_B": {
+    "n_windows": 56,
+    "n_high": 56,
+    "high_conf_fraction": 1.0,
+    "estimated_bpm": 133.92857142857142,
+    "mean_confidence": 0.8404610290857341,
+    "max_confidence": 0.8900443669138784,
+    "bpm_std_high": 2.4598177226018665,
+    "reliable": true,
+    "verdict": "OK",
+    "used_fallback_median": false,
+    "label": "RUN B (resampled 500 Hz)",
+    "fs": 500.0
+  },
+  "run_C_primary": {
+    "n_windows": 56,
+    "n_high": 56,
+    "high_conf_fraction": 1.0,
+    "estimated_bpm": 133.92857142857142,
+    "mean_confidence": 0.8076714135146965,
+    "max_confidence": 0.8825591047767692,
+    "bpm_std_high": 2.1844821019605285,
+    "reliable": true,
+    "verdict": "OK",
+    "used_fallback_median": false
+  },
+  "run_C_secondary": {
+    "n_windows": 56,
+    "n_high": 56,
+    "high_conf_fraction": 1.0,
+    "estimated_bpm": 134.2288597053171,
+    "mean_confidence": 0.8204045863866438,
+    "max_confidence": 0.8897830589441104,
+    "bpm_std_high": 2.2032034963141793,
+    "reliable": true,
+    "verdict": "OK",
+    "used_fallback_median": false
+  },
+  "level": {
+    "rms": 87.20394564472139,
+    "peak": 642.0562431945957,
+    "crest": 7.362697162928811,
+    "n_within_90pct_peak": 7
+  }
+}
