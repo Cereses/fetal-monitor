@@ -44,3 +44,32 @@ hardware/**/build/
 hardware/**/*.bin
 *_raw500.csv
 
+# ---- PCG bring-up (hardware/pcg_bringup/) ----
+
+# Stimulus WAVs and the reference .npy are regenerable from
+# 01_stimulus.py given fpcgdb, same argument as data/. The p21 WAV
+# alone is ~5 MB. The manifest is small and records what was built.
+hardware/pcg_bringup/stimulus/*.wav
+hardware/pcg_bringup/stimulus/*.npy
+!hardware/pcg_bringup/stimulus/stimulus_manifest.json
+
+# Raw 500 Hz captures: characterisation, level-finding and sweep runs
+# are re-runnable and each is ~600 KB. The DERIVED results/*.json carry
+# every number the notes cite, so nothing is lost by dropping these.
+hardware/pcg_bringup/captures/pcg_char_*.csv
+hardware/pcg_bringup/captures/pcg_level_*.csv
+
+# EXCEPTION: run C is the phase's result, not characterisation. It is
+# the one artefact a reviewer would ask to see, and at ~630 KB it is
+# worth the space. Explicitly NOT ignored.
+
+!hardware/pcg_bringup/captures/pcg_runC_*.csv
+captures/pcg_char_baseline_20260831_183354.csv
+captures/pcg_char_baseline_20260831_183912.csv
+captures/pcg_char_baseline_20260831_185145.csv
+captures/pcg_char_occluded_20260831_191155.csv
+captures/pcg_char_sweep_sub_20260831_195034.csv
+captures/pcg_level_20260901_124732.csv
+stimulus/fetal_PCG_p21_GW_39_60s_60s.wav
+stimulus/fetal_PCG_p21_GW_39_60s_60s_native333.npy
+stimulus/tone_sweep.wav

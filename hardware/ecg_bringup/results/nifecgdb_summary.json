@@ -1,0 +1,37 @@
+{
+  "limited_run": false,
+  "records_scored": 55,
+  "channel_records": 313,
+  "detector_sha256": "71eb60e950f64edd96e4e889c80d65fbf453f38273c85829082dab91ef02b82a",
+  "evaluator_sha256": "a768b352f89b7efd97190b62b2fdd5d3de205ffc329bbfc741b69b0341892e72",
+  "prereg_sha256": "27fef43fe554e85ae9ae85a4eac5cb57e4e17be0bafdc080a2e7eb684e621023",
+  "tolerance_ms": 150.0,
+  "tolerance_samples": 150,
+  "thoracic": {
+    "n": 110,
+    "TP": 95661,
+    "FP": 7962,
+    "FN": 299,
+    "sensitivity": 0.9968841183826594,
+    "PPV": 0.9231637763816913
+  },
+  "abdominal": {
+    "n": 203,
+    "TP": 168185,
+    "FP": 17541,
+    "FN": 15180,
+    "sensitivity": 0.9172142993482943,
+    "PPV": 0.9055544188751171
+  },
+  "placement_cost_se_pp": 7.96698190343651,
+  "paired_records": 55,
+  "abdominal_worse_records": 23,
+  "p4_frac_in_gap": 0.8155753889898112,
+  "predictions": {
+    "P1": true,
+    "P2": false,
+    "P3": false,
+    "P4": true
+  },
+  "runtime_s": 19.98995804786682
+}

@@ -1,0 +1,85 @@
+{
+  "record": "ecgca699.edf",
+  "gestation": [
+    32,
+    3
+  ],
+  "channel": "Thorax_2",
+  "reference_beats": 571,
+  "median_rr_s": 0.552,
+  "median_bpm": 108.69565217391303,
+  "bpm_max": 119.04761904761905,
+  "bpm_min": 50.0,
+  "bpm_p95": 117.41682974559687,
+  "record_lag1_corr": -0.01442102981547793,
+  "record_half_cluster": 0.0,
+  "windows_paired": 41,
+  "window_mae_bpm": 119.39495908562915,
+  "unmatched_detections": 638,
+  "unmatched_offset_median_s": 0.211,
+  "unmatched_offset_iqr_s": 0.006000000000000005,
+  "unmatched_frac_of_rr_median": 0.3826247689463955,
+  "phase_verdict": "T wave",
+  "worst_windows": [
+    {
+      "window": 28,
+      "t_start_s": 224.0,
+      "ref_bpm": 104.34782608695653,
+      "det_bpm": 267.85714285714283,
+      "ratio": 0.3895652173913044,
+      "error_bpm": 163.5093167701863,
+      "n_ref": 13,
+      "n_det": 28,
+      "lag1_corr": -0.45511049208742566,
+      "half_cluster": 0.0
+    },
+    {
+      "window": 29,
+      "t_start_s": 232.0,
+      "ref_bpm": 103.89610389610391,
+      "det_bpm": 266.6666666666667,
+      "ratio": 0.38961038961038963,
+      "error_bpm": 162.77056277056278,
+      "n_ref": 13,
+      "n_det": 28,
+      "lag1_corr": -0.0929738650848244,
+      "half_cluster": 0.0
+    },
+    {
+      "window": 12,
+      "t_start_s": 96.0,
+      "ref_bpm": 107.91366906474819,
+      "det_bpm": 267.85714285714283,
+      "ratio": 0.4028776978417266,
+      "error_bpm": 159.94347379239463,
+      "n_ref": 13,
+      "n_det": 28,
+      "lag1_corr": -0.10648129991267216,
+      "half_cluster": 0.0
+    },
+    {
+      "window": 8,
+      "t_start_s": 64.0,
+      "ref_bpm": 110.49723756906077,
+      "det_bpm": 270.27027027027026,
+      "ratio": 0.4088397790055249,
+      "error_bpm": 159.7730327012095,
+      "n_ref": 14,
+      "n_det": 30,
+      "lag1_corr": -0.39132707285865787,
+      "half_cluster": 0.0
+    },
+    {
+      "window": 11,
+      "t_start_s": 88.0,
+      "ref_bpm": 109.4890510948905,
+      "det_bpm": 269.05829596412553,
+      "ratio": 0.40693430656934304,
+      "error_bpm": 159.56924486923504,
+      "n_ref": 14,
+      "n_det": 30,
+      "lag1_corr": -0.060582746035186645,
+      "half_cluster": 0.0
+    }
+  ]
+}

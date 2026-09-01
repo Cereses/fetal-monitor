@@ -1,0 +1,42 @@
+{
+  "window_s": 8.0,
+  "min_intervals": 4,
+  "rate_estimator": "median RR within window",
+  "detector_sha256": "71eb60e950f64edd96e4e889c80d65fbf453f38273c85829082dab91ef02b82a",
+  "nifecgdb_thoracic": {
+    "n": 8190,
+    "mae_bpm": 0.9393003382263891,
+    "bias_bpm": 0.6887781336591334,
+    "sd_bpm": 8.877130763298913,
+    "median_abs_bpm": 0.1458002245323513,
+    "max_abs_bpm": 163.5093167701863,
+    "ref_bpm_mean": 93.53486634190939,
+    "ref_bpm_range": [
+      75.0,
+      213.90374331550805
+    ],
+    "loa_lower": -16.710398162406737,
+    "loa_upper": 18.087954429725006,
+    "within_2_bpm": 0.9847374847374848,
+    "within_5_bpm": 0.9937728937728938
+  },
+  "device_capture": {
+    "n": 3,
+    "mae_bpm": 0.13365580325229112,
+    "bias_bpm": 0.13365580325229112,
+    "sd_bpm": 0.12936821831409276,
+    "median_abs_bpm": 0.14270628193052914,
+    "max_abs_bpm": 0.25826112782634425,
+    "ref_bpm_mean": 62.175465492218414,
+    "ref_bpm_range": [
+      59.05511811023622,
+      65.359477124183
+    ],
+    "loa_lower": -0.1199059046433307,
+    "loa_upper": 0.3872175111479129,
+    "within_2_bpm": 1.0,
+    "within_5_bpm": 1.0
+  },
+  "mean_window_coverage": 0.9972592149062738,
+  "runtime_s": 41.100130558013916
+}
