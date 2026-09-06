@@ -17,12 +17,14 @@ reference to the detector's own resolution.
 
 Four limits, stated first because they bound every number below.
 
-**Airborne playback is the easy case.** Run C plays a recording at a bare
-electret capsule. An electret is designed to transduce airborne pressure. The
-real problem — fetal heart sounds arriving as *surface vibration* through
-tissue, across an air/tissue impedance boundary that discards roughly 99.9% of
-incident acoustic power — is not addressed here at all. The acoustic chamber
-that would recover part of that loss was not built and not tested.
+ **Airborne playback is the easy case, but surface conduction was subsequently tested.** 
+ Run C plays a recording at a bare electret capsule, which an electret is designed to transduce. 
+ It says nothing about fetal heart sounds arriving as surface vibration through tissue. 
+ §14 addresses that separately and establishes that surface-conducted heart sound does reach the
+ capsule — contact-dependent, with S1/S2 doublet structure and a
+ physiologically correct systolic fraction — on an **adult**, with the
+ absolute rate unresolved (§14.5) and the chamber-versus-bare comparison
+ invalidated by a hardware fault (§14.6).
 
 **The stimulus is the best case.** `fetal_PCG_p21_GW_39` is the highest-scoring
 record in fpcgdb (0.7631 confidence, 97.41% of windows reliable over the full
@@ -541,11 +543,18 @@ failure, since the constraint was in context throughout.
 - Resampling 333 → 500 Hz costs 0.17 BPM and 0.002 confidence (§10.2).
 - The reference segment is quantised to ~7.7 usable bits; the ESP32 ADC is not
   the bottleneck (§9).
+- Surface-conducted heart sound reaches the capsule: contact-dependent, air
+  control at exactly the noise floor, alternating S1/S2 doublet passing all four
+  pre-registered criteria, systolic fraction 0.365 (§14.3, §14.4).
+- Body contact plus USB power drives the channel to 95–97% mains; unplugging the
+  charger collapses it by ~40 dB (§14.2).
 
 **Not established:**
 
-- **Anything about surface-conducted sound.** No acoustic chamber was built or
-  tested. The ~30 dB tissue/air impedance loss is untouched.
+- **How much of the ~30 dB tissue/air impedance loss the chamber recovers.**
+  Surface conduction is established (§14.3, §14.4), but no quantitative
+  transmission figure was measured — and the comparison that would have
+  produced one was invalidated (§14.6).
 - Absolute sample-rate accuracy. Only "no scheduler slip" (§3).
 - The mechanism behind the pure-tone false positive — hypothesised, not verified
   (§7.2).
@@ -555,22 +564,30 @@ failure, since the constraint was in context throughout.
   (§5).
 - Performance on anything but the best record in fpcgdb, played back cleanly
   (§0).
+- The **absolute rate** of the contact signal: 87.0 BPM by three converging
+  routes against two careful 60-second counts of 71 and 70 (§14.5).
+- **Chamber versus bare capsule.** Attempted, invalidated by intermittent
+  connection reaching both ADC rails (§14.6).
 
 ---
 
 ## 13. Outstanding
 
-- **Acoustic chamber.** The claim this phase did not touch. A bottle cap was
-  sourced; nothing was built or measured.
 - **Signal-quality gate** ahead of the detector, motivated by §7.2. New code, and
   the threshold should come from the measured separation (97.94% vs 2.58–4.43%
   vs 4.07%), not be invented.
 - **Plausibility ceiling** on reported heart rate — §7.1 is measured evidence for
   it.
-- **Multi-rate ISR.** Single high-rate timer with per-channel decimation
-  (PCG ~500 Hz, ECG 250 Hz, UC ~4 Hz). FHR and contraction timing must share a
-  time base or deceleration phase is meaningless. The erratum must be re-tested
-  under channel alternation.
+- ~~**Multi-rate ISR.**~~ **DONE** (2026-09-06), two-channel: PCG 500 Hz and
+  UC 4 Hz from one timer, so FHR and contraction timing share a time base. The
+  erratum was re-tested under channel alternation and **cleared** by a paired
+  same-session control, closing §6's deferred item. See
+  `hardware/mrisr/notes/notes.md`. The ECG channel was excluded on a measured
+  serial-budget constraint, not an omission.
 - **Causal filter conversion.** All frozen pipelines use `filtfilt`, which is
   acausal and incompatible with live streaming.
 - **RC anti-alias filter**, deferred and never added.
+- **Resolve the §14.5 rate discrepancy**, ideally by simultaneous AD8232
+  capture using the validated QRS detector as the measuring instrument.
+- **Re-run the chamber comparison** if time allows, after adding mechanical
+  strain relief to the capsule leads.

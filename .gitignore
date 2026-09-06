@@ -36,6 +36,7 @@ Thumbs.db
 .vscode/
 .idea/
 *.swp
+*.lnk
 
 results/*.npz
 
@@ -44,7 +45,9 @@ hardware/**/build/
 hardware/**/*.bin
 *_raw500.csv
 
-# ---- PCG bring-up (hardware/pcg_bringup/) ----
+# ============================================================
+#  PCG bring-up  (hardware/pcg_bringup/)
+# ============================================================
 
 # Stimulus WAVs and the reference .npy are regenerable from
 # 01_stimulus.py given fpcgdb, same argument as data/. The p21 WAV
@@ -62,8 +65,36 @@ hardware/pcg_bringup/captures/pcg_level_*.csv
 # EXCEPTION: run C is the phase's result, not characterisation. It is
 # the one artefact a reviewer would ask to see, and at ~630 KB it is
 # worth the space. Explicitly NOT ignored.
-
 !hardware/pcg_bringup/captures/pcg_runC_*.csv
+
+# EXCEPTION: the two captures carrying the §14.4 surface-conduction
+# finding — the doublet positive and its falsifier control. Results,
+# not characterisation, and the artefacts a reviewer would ask to see.
+# The ctrl_* and verify_bench captures stay ignored; their results/*.json
+# record the ADC-rail fault adequately.
+!hardware/pcg_bringup/captures/pcg_char_chest_bare_batt_*.csv
+!hardware/pcg_bringup/captures/pcg_char_chest_air_batt_*.csv
+
+# ============================================================
+#  Multi-rate ISR  (hardware/mrisr/)
+# ============================================================
+
+# Raw 500 Hz PCG captures are re-runnable characterisation, ~675 KB
+# each; results/*.json carries every number the notes cite. The
+# DECIMATED UC files are ~10 KB and are the input 04_detect.py reads,
+# so contractions_*_uc4hz.csv stays tracked — same convention as the
+# toco phase.
+hardware/mrisr/captures/mrisr_*_pcg500.csv
+
+# ============================================================
+#  Inert duplicates — kept, but they match nothing
+# ============================================================
+# A gitignore pattern containing a slash is anchored to the directory
+# holding the .gitignore, so these resolve to <repo-root>/captures/ and
+# <repo-root>/stimulus/. Neither exists; the real paths are under
+# hardware/pcg_bringup/ and are already covered by the anchored rules
+# above. Left in place rather than removed, since nothing depends on
+# them either way. Safe to delete.
 captures/pcg_char_baseline_20260831_183354.csv
 captures/pcg_char_baseline_20260831_183912.csv
 captures/pcg_char_baseline_20260831_185145.csv
