@@ -104,3 +104,8 @@ captures/pcg_level_20260901_124732.csv
 stimulus/fetal_PCG_p21_GW_39_60s_60s.wav
 stimulus/fetal_PCG_p21_GW_39_60s_60s_native333.npy
 stimulus/tone_sweep.wav
+
+# Claude Code: commit the shared permission rules so the constraints
+# travel with the repo; ignore machine-local state.
+.claude/settings.local.json
+.claude/*.local.json
