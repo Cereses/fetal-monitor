@@ -1,0 +1,56 @@
+{
+  "stem": "mrisr_baseline_20260906_003840",
+  "header": "# mrisr_capture pcg=39@500 uc=35@4 decim=125 fs=500 att=11db uc=mean_of_125_as_sum",
+  "tag": "baseline",
+  "malformed": 0,
+  "pcg_file": "captures\\mrisr_baseline_20260906_003840_pcg500.csv",
+  "uc_file": "captures\\contractions_20260906_003840_uc4hz.csv",
+  "fs_pcg": 499.98889037017284,
+  "fs_uc": 3.9999999554317553,
+  "dt_mean_us": 2000.0444395067216,
+  "dt_std_us": 9.446620710041543,
+  "n_gaps_2x": 0,
+  "largest_uc_gap_s": 0.2500010000000046,
+  "pcg": {
+    "label": "PCG",
+    "n": 45006,
+    "mean": 1910.6360707461226,
+    "std": 3.573263660613097,
+    "min": 1862.0,
+    "max": 1963.0,
+    "p2p": 101.0,
+    "ratio": 28.26547649233425
+  },
+  "uc": {
+    "label": "UC",
+    "n": 360,
+    "mean": 1509.6202888888888,
+    "std": 0.8277317365271947,
+    "min": 1507.192,
+    "max": 1512.16,
+    "p2p": 4.968000000000075,
+    "ratio": 6.001944568221654
+  },
+  "erratum_active": true,
+  "pcg_contaminated": false,
+  "uc_contaminated": false,
+  "baselines": {
+    "pcg_std": [
+      3.82,
+      4.11
+    ],
+    "pcg_ratio": [
+      14.5,
+      14.9
+    ],
+    "uc_std": 3.92,
+    "pcg_bias": [
+      1907.0,
+      1911.0
+    ]
+  },
+  "preregistered": {
+    "std_tolerance": 1.5,
+    "ratio_tolerance": 1.3
+  }
+}
