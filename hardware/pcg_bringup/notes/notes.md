@@ -195,6 +195,21 @@ background in the 25–200 Hz passband:
 | strength | +12.1 dB | +8.6 dB | +12.4 dB |
 | share of in-band power | 4.07% | 2.58% | 4.43% |
 
+The strength row is `quick_check_lines.py` stdout for the 47.80 Hz line and is
+not persisted. The `db_over_bg` values in `results/*.json` for these same three
+captures are much lower — `spectrum_full.mains[].db_over_bg` at 50/100/150 Hz
+reads +1.55/+0.62/+1.76 (base 1, `pcg_char_baseline_20260831_183354.json`),
++0.11/+1.03/+0.74 (base 2, `pcg_char_baseline_20260831_183912.json`) and
++1.07/+1.60/+1.92 (base 3, `pcg_char_baseline_20260831_185145.json`) — because
+those are measured at 50/100/150 Hz and 47.80 Hz falls outside every mains
+window (§11.1). Different quantities, not a discrepancy.
+
+Base 1/2/3 are mapped to these files by matching `signal_full.mean` against
+§4's DC-bias row (exact to 2 dp for all three, and consistent with capture
+timestamp order). No results file records the base labels, so the mapping is
+inferred, not recorded. The nine dB values are read directly from the files and
+hold regardless of the mapping.
+
 **47.80 ± 0.00 Hz** across three runs spanning eighteen minutes — a persistent
 source, not a transient.
 
@@ -315,16 +330,32 @@ stated as mechanism.
 **Consequence.** Combined with §7.1, the device can produce a physiologically
 plausible number at high confidence from a signal containing no heart.
 **Confidence alone is not a sufficient gate.** The measured separation is stark
-— dominant-line share of in-band power was 97.94% for interference against
-2.58–4.43% for the quiet floor, and 4.07% for real fetal PCG — which suggests a
-signal-quality gate ahead of the detector. That would be new code, never a
-modification of frozen code.
+— dominant-line share of in-band power was 97.91% for interference against
+2.58–4.43% for the quiet floor — which suggests a signal-quality gate ahead of
+the detector. That would be new code, never a modification of frozen code.
+
+(2.58–4.43% is `quick_check_lines.py` stdout from the §5 baselines and appears
+in no results file — the same provenance gap §11.5 describes.)
+
+The 97.91% is `results/pcg_char_occluded_20260831_191155.json`,
+`spectrum_full`, 50 Hz `pct_of_inband`. The strongest in-band line in that
+capture was at 50.40 Hz, inside the ±1 Hz window around 50, so the
+fixed-frequency and strongest-line figures coincide there.
+
+**Both ends of this separation are non-cardiac.** The share was measured on an
+occluded capture and on the quiet floor, and never on a capture containing
+fetal heart sounds. An earlier version of this paragraph cited 4.07% as "real
+fetal PCG": 4.07% is baseline 1 of the quiet-floor row in §5, a 47.80 Hz line
+on a capture with no acoustic stimulus. See §11.5.
 
 ### 7.3 Body contact injects mains at 235× the noise floor
 
 The occlusion capture measured std **939.01** counts against a 3.82–4.11 baseline,
-with 50.40 Hz at +57.1 dB carrying **97.94%** of in-band power and harmonics at
-100.60, 151.00 and 198.20 Hz.
+with 50.40 Hz at +57.1 dB carrying **97.91%** of in-band power
+(`results/pcg_char_occluded_20260831_191155.json`, `spectrum_full`, 50 Hz
+`pct_of_inband`) and harmonics at 100.60, 151.00 and 198.20 Hz. The strongest
+in-band line in that capture was at 50.40 Hz, inside the ±1 Hz window around
+50, so the fixed-frequency and strongest-line figures coincide there.
 
 The body is capacitively coupled to mains wiring and acts as an antenna; a
 fingertip on a high-impedance electret input couples that in directly. Recorded
@@ -484,7 +515,7 @@ which survives filtering, not spectral fidelity, which does not.
 
 ## 11. Errors made in this phase
 
-All four are analysis or process errors, recorded rather than quietly fixed.
+All five are analysis or process errors, recorded rather than quietly fixed.
 Three share one shape.
 
 **11.1 Fixed-frequency mains window.** The mains test integrated 50/100/150 Hz
@@ -517,6 +548,26 @@ requirement for belt operation*, despite the belt having been descoped in this
 phase's own opening brief. The measurement stands; the framing was wrong and was
 corrected to a characterised bench interference mode. Worse than a retrieval
 failure, since the constraint was in context throughout.
+
+**11.5 A figure that outlived its provenance.** The dominant-line share quoted
+in §7.2 and §13 was produced by `quick_check_lines.py`, which prints
+`pct_inband` to stdout and **persists nothing** — its only file output is a
+plot. With no results file to check against, the number survived in the notes
+past the run that made it and was later re-attributed: 4.07%, baseline 1 of the
+§5 quiet-floor row, was written up as the share for "real fetal PCG", a capture
+class never measured for this quantity at all. The 97.94% quoted alongside it
+was not a `spectrum_full` value either; the persisted figure is 97.91%
+(`results/pcg_char_occluded_20260831_191155.json`, 50 Hz `pct_of_inband`).
+
+**This is not the 11.1–11.3 pattern.** Those are metrics that specified
+something *adjacent* to what mattered — a fixed window beside the real line, a
+CV without its noise reference, a collapse condition beside an explosion. The
+metric was pointed slightly wrong. Here the metric is **correctly designed and
+measures exactly the right thing**; what failed is that its output was never
+written to disk, so the number lost its link to the capture and the run that
+produced it and drifted onto a different claim. Distinct failure, distinct fix:
+persist what gets cited. Found by provenance audit against `results/` — which
+only works for quantities that are in `results/`.
 
 ---
 
@@ -573,9 +624,12 @@ failure, since the constraint was in context throughout.
 
 ## 13. Outstanding
 
-- **Signal-quality gate** ahead of the detector, motivated by §7.2. New code, and
-  the threshold should come from the measured separation (97.94% vs 2.58–4.43%
-  vs 4.07%), not be invented.
+- **Signal-quality gate** ahead of the detector, motivated by §7.2. New code.
+  **The measured separation cannot supply the threshold.** Both ends of it are
+  non-cardiac — an occluded capture and the quiet floor — and no capture
+  containing fetal heart sounds has ever been measured for this quantity
+  (§11.5). A gate needs a pass-side measurement first, and the quantity has to
+  be persisted before it can be one.
 - **Plausibility ceiling** on reported heart rate — §7.1 is measured evidence for
   it.
 - ~~**Multi-rate ISR.**~~ **DONE** (2026-09-06), two-channel: PCG 500 Hz and

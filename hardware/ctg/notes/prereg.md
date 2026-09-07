@@ -302,7 +302,7 @@ Reference values, all with their conditions attached:
 | Condition | Share | Source |
 |---|---|---|
 | Occluded capture, line at 50.40 Hz | 97.91% | `pcg_char_occluded_20260831_191155.json`, `spectrum_full` |
-| Quiet floor, `pcg_bringup` baselines 1–3 | 2.58 / 4.07 / 4.43% | `notes.md:196` |
+| Quiet floor, `pcg_bringup` baselines 1–3 | 2.58 / 4.07 / 4.43% | `notes.md:196` (`quick_check_lines.py` stdout, unpersisted) |
 | Quiet floor, three `mrisr` captures at 47.80 Hz | 8.21 / 8.38 / 8.59% | measured for this pre-registration |
 
 **This will be the first persisted measurement of this quantity on a capture
