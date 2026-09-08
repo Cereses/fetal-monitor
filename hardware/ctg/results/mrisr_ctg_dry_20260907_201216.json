@@ -1,0 +1,137 @@
+{
+  "stem": "mrisr_ctg_dry_20260907_201216",
+  "stamp": "20260907_201216",
+  "tag": "dry",
+  "profile": "dry",
+  "validated_protocol": false,
+  "profile_note": "rig check only. NOT the validated protocol.",
+  "script": "C:\\Users\\Jaydenn\\Documents\\fetal-monitor\\hardware\\ctg\\01_capture.py",
+  "git_head": "bf564f924b275c614850ee75dddcbb66788c18ff",
+  "header": "# mrisr_capture pcg=39@500 uc=35@4 decim=125 fs=500 att=11db uc=mean_of_125_as_sum",
+  "protocol": {
+    "baseline_s": 20.0,
+    "cycles": 1,
+    "ramp_s": 20.0,
+    "hold_s": 25.0,
+    "fall_s": 20.0,
+    "rest_s": 20.0,
+    "validated": false,
+    "note": "rig check only. NOT the validated protocol.",
+    "total_s": 105.0,
+    "n_cues": 5
+  },
+  "files": {
+    "pcg": "captures\\mrisr_ctg_dry_20260907_201216_pcg500.csv",
+    "uc": "captures\\contractions_20260907_201216_uc4hz.csv",
+    "cues": "captures\\cues_20260907_201216.csv",
+    "plot": "plots\\01_mrisr_ctg_dry_20260907_201216.png",
+    "pcg_bytes": 784704
+  },
+  "counts": {
+    "pcg": 52506,
+    "uc": 420,
+    "malformed": 0,
+    "total_lines": 52926,
+    "malformed_rate": 0.0
+  },
+  "timing": {
+    "wall_s": 105.0066123008728,
+    "pcg_span_s": 105.01,
+    "uc_span_s": 104.75,
+    "fs_pcg": 500.0,
+    "fs_uc": 4.0,
+    "dt_mean_us": 2000.0,
+    "dt_std_us": 0.6040841223643251,
+    "n_gaps_2x": 0,
+    "largest_uc_gap_s": 0.2500010000000046,
+    "host_device_drift_s": -0.0033876991272023815
+  },
+  "signal": {
+    "pcg_mean": 1904.646726088447,
+    "pcg_std": 87.4182677216159,
+    "pcg_min": 1339.0,
+    "pcg_max": 2456.0,
+    "pcg_p2p": 1117.0,
+    "pcg_peak_excursion": 565.6467260884469,
+    "uc_min": 0.0,
+    "uc_max": 2363.344,
+    "uc_span": 2363.344
+  },
+  "cues": [
+    {
+      "scheduled_s": 0.0,
+      "host_s": 4.76837158203125e-07,
+      "device_us": 0,
+      "phase": "BASELINE",
+      "cycle": 0
+    },
+    {
+      "scheduled_s": 20.0,
+      "host_s": 20.001985549926758,
+      "device_us": 20012001,
+      "phase": "RAMP",
+      "cycle": 1
+    },
+    {
+      "scheduled_s": 40.0,
+      "host_s": 40.001644134521484,
+      "device_us": 40012001,
+      "phase": "HOLD",
+      "cycle": 1
+    },
+    {
+      "scheduled_s": 65.0,
+      "host_s": 65.00141310691833,
+      "device_us": 65012000,
+      "phase": "FALL",
+      "cycle": 1
+    },
+    {
+      "scheduled_s": 85.0,
+      "host_s": 85.00105333328247,
+      "device_us": 85012001,
+      "phase": "REST",
+      "cycle": 1
+    }
+  ],
+  "c5": {
+    "pass": true,
+    "checks": [
+      {
+        "name": "PCG timestamps strictly increasing",
+        "pass": true,
+        "detail": "0 violations"
+      },
+      {
+        "name": "UC timestamps strictly increasing",
+        "pass": true,
+        "detail": "0 violations"
+      },
+      {
+        "name": "PCG fs within 0.1% of 500 Hz",
+        "pass": true,
+        "detail": "500.0000 Hz"
+      },
+      {
+        "name": "UC fs within 0.1% of 4 Hz",
+        "pass": true,
+        "detail": "4.0000 Hz"
+      },
+      {
+        "name": "largest UC gap under 5 s",
+        "pass": true,
+        "detail": "0.250 s"
+      },
+      {
+        "name": "protocol completed",
+        "pass": true,
+        "detail": "5/5 cues, 105.0/105 s"
+      }
+    ],
+    "tolerances": {
+      "fs_tolerance_frac": 0.001,
+      "max_uc_gap_s": 5.0
+    }
+  },
+  "detectors_run": false
+}

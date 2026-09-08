@@ -1,0 +1,305 @@
+{
+  "stem": "mrisr_ctg_gold_20260908_023551",
+  "stamp": "20260908_023551",
+  "tag": "gold",
+  "profile": "gold",
+  "validated_protocol": true,
+  "profile_note": "the frozen toco protocol, timings unchanged",
+  "script": "C:\\Users\\Jaydenn\\Documents\\fetal-monitor\\hardware\\ctg\\01_capture.py",
+  "git_head": "bf564f924b275c614850ee75dddcbb66788c18ff",
+  "header": "# mrisr_capture pcg=39@500 uc=35@4 decim=125 fs=500 att=11db uc=mean_of_125_as_sum",
+  "protocol": {
+    "baseline_s": 60.0,
+    "cycles": 7,
+    "ramp_s": 20.0,
+    "hold_s": 25.0,
+    "fall_s": 20.0,
+    "rest_s": 100.0,
+    "validated": true,
+    "note": "the frozen toco protocol, timings unchanged",
+    "total_s": 1215.0,
+    "n_cues": 29
+  },
+  "files": {
+    "pcg": "captures\\mrisr_ctg_gold_20260908_023551_pcg500.csv",
+    "uc": "captures\\contractions_20260908_023551_uc4hz.csv",
+    "cues": "captures\\cues_20260908_023551.csv",
+    "plot": "plots\\01_mrisr_ctg_gold_20260908_023551.png",
+    "pcg_bytes": 9772294
+  },
+  "counts": {
+    "pcg": 607511,
+    "uc": 4860,
+    "malformed": 0,
+    "total_lines": 612371,
+    "malformed_rate": 0.0
+  },
+  "timing": {
+    "wall_s": 1215.0352621078491,
+    "pcg_span_s": 1215.022,
+    "uc_span_s": 1214.75,
+    "fs_pcg": 499.99917696963513,
+    "fs_uc": 4.0,
+    "dt_mean_us": 2000.0032921268785,
+    "dt_std_us": 2.6037015825691587,
+    "n_gaps_2x": 0,
+    "largest_uc_gap_s": 0.25000100000011116,
+    "host_device_drift_s": 0.013262107849186577
+  },
+  "signal": {
+    "pcg_mean": 1914.5335146194884,
+    "pcg_std": 85.15339272046879,
+    "pcg_min": 1367.0,
+    "pcg_max": 2474.0,
+    "pcg_p2p": 1107.0,
+    "pcg_peak_excursion": 559.4664853805116,
+    "uc_min": 0.0,
+    "uc_max": 2365.712,
+    "uc_span": 2365.712
+  },
+  "cues": [
+    {
+      "scheduled_s": 0.0,
+      "host_s": 2.384185791015625e-07,
+      "device_us": 0,
+      "phase": "BASELINE",
+      "cycle": 0
+    },
+    {
+      "scheduled_s": 60.0,
+      "host_s": 60.00194263458252,
+      "device_us": 60012000,
+      "phase": "RAMP",
+      "cycle": 1
+    },
+    {
+      "scheduled_s": 80.0,
+      "host_s": 80.00176405906677,
+      "device_us": 80012000,
+      "phase": "HOLD",
+      "cycle": 1
+    },
+    {
+      "scheduled_s": 105.0,
+      "host_s": 105.00168752670288,
+      "device_us": 105012000,
+      "phase": "FALL",
+      "cycle": 1
+    },
+    {
+      "scheduled_s": 125.0,
+      "host_s": 125.00179314613342,
+      "device_us": 125012000,
+      "phase": "REST",
+      "cycle": 1
+    },
+    {
+      "scheduled_s": 225.0,
+      "host_s": 225.0007984638214,
+      "device_us": 225012000,
+      "phase": "RAMP",
+      "cycle": 2
+    },
+    {
+      "scheduled_s": 245.0,
+      "host_s": 245.0005486011505,
+      "device_us": 245012000,
+      "phase": "HOLD",
+      "cycle": 2
+    },
+    {
+      "scheduled_s": 270.0,
+      "host_s": 270.00020265579224,
+      "device_us": 270012000,
+      "phase": "FALL",
+      "cycle": 2
+    },
+    {
+      "scheduled_s": 290.0,
+      "host_s": 290.00003814697266,
+      "device_us": 290012001,
+      "phase": "REST",
+      "cycle": 2
+    },
+    {
+      "scheduled_s": 390.0,
+      "host_s": 390.001220703125,
+      "device_us": 390014000,
+      "phase": "RAMP",
+      "cycle": 3
+    },
+    {
+      "scheduled_s": 410.0,
+      "host_s": 410.0010952949524,
+      "device_us": 410014000,
+      "phase": "HOLD",
+      "cycle": 3
+    },
+    {
+      "scheduled_s": 435.0,
+      "host_s": 435.0007176399231,
+      "device_us": 435014000,
+      "phase": "FALL",
+      "cycle": 3
+    },
+    {
+      "scheduled_s": 455.0,
+      "host_s": 455.0007119178772,
+      "device_us": 455014000,
+      "phase": "REST",
+      "cycle": 3
+    },
+    {
+      "scheduled_s": 555.0,
+      "host_s": 555.0017111301422,
+      "device_us": 555016000,
+      "phase": "RAMP",
+      "cycle": 4
+    },
+    {
+      "scheduled_s": 575.0,
+      "host_s": 575.0015411376953,
+      "device_us": 575016000,
+      "phase": "HOLD",
+      "cycle": 4
+    },
+    {
+      "scheduled_s": 600.0,
+      "host_s": 600.001220703125,
+      "device_us": 600016000,
+      "phase": "FALL",
+      "cycle": 4
+    },
+    {
+      "scheduled_s": 620.0,
+      "host_s": 620.0011563301086,
+      "device_us": 620016000,
+      "phase": "REST",
+      "cycle": 4
+    },
+    {
+      "scheduled_s": 720.0,
+      "host_s": 720.0000648498535,
+      "device_us": 720016000,
+      "phase": "RAMP",
+      "cycle": 5
+    },
+    {
+      "scheduled_s": 740.0,
+      "host_s": 740.0019681453705,
+      "device_us": 740018000,
+      "phase": "HOLD",
+      "cycle": 5
+    },
+    {
+      "scheduled_s": 765.0,
+      "host_s": 765.0018122196198,
+      "device_us": 765018000,
+      "phase": "FALL",
+      "cycle": 5
+    },
+    {
+      "scheduled_s": 785.0,
+      "host_s": 785.0014610290527,
+      "device_us": 785018000,
+      "phase": "REST",
+      "cycle": 5
+    },
+    {
+      "scheduled_s": 885.0,
+      "host_s": 885.0006754398346,
+      "device_us": 885018000,
+      "phase": "RAMP",
+      "cycle": 6
+    },
+    {
+      "scheduled_s": 905.0,
+      "host_s": 905.0005848407745,
+      "device_us": 905018000,
+      "phase": "HOLD",
+      "cycle": 6
+    },
+    {
+      "scheduled_s": 930.0,
+      "host_s": 930.0001149177551,
+      "device_us": 930018000,
+      "phase": "FALL",
+      "cycle": 6
+    },
+    {
+      "scheduled_s": 950.0,
+      "host_s": 950.0018923282623,
+      "device_us": 950020000,
+      "phase": "REST",
+      "cycle": 6
+    },
+    {
+      "scheduled_s": 1050.0,
+      "host_s": 1050.0013341903687,
+      "device_us": 1050020000,
+      "phase": "RAMP",
+      "cycle": 7
+    },
+    {
+      "scheduled_s": 1070.0,
+      "host_s": 1070.0013971328735,
+      "device_us": 1070020000,
+      "phase": "HOLD",
+      "cycle": 7
+    },
+    {
+      "scheduled_s": 1095.0,
+      "host_s": 1095.0009696483612,
+      "device_us": 1095020000,
+      "phase": "FALL",
+      "cycle": 7
+    },
+    {
+      "scheduled_s": 1115.0,
+      "host_s": 1115.000663280487,
+      "device_us": 1115020000,
+      "phase": "REST",
+      "cycle": 7
+    }
+  ],
+  "c5": {
+    "pass": true,
+    "checks": [
+      {
+        "name": "PCG timestamps strictly increasing",
+        "pass": true,
+        "detail": "0 violations"
+      },
+      {
+        "name": "UC timestamps strictly increasing",
+        "pass": true,
+        "detail": "0 violations"
+      },
+      {
+        "name": "PCG fs within 0.1% of 500 Hz",
+        "pass": true,
+        "detail": "499.9992 Hz"
+      },
+      {
+        "name": "UC fs within 0.1% of 4 Hz",
+        "pass": true,
+        "detail": "4.0000 Hz"
+      },
+      {
+        "name": "largest UC gap under 5 s",
+        "pass": true,
+        "detail": "0.250 s"
+      },
+      {
+        "name": "protocol completed",
+        "pass": true,
+        "detail": "29/29 cues, 1215.0/1215 s"
+      }
+    ],
+    "tolerances": {
+      "fs_tolerance_frac": 0.001,
+      "max_uc_gap_s": 5.0
+    }
+  },
+  "detectors_run": false
+}
