@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FetoPulse capture viewer</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='3' fill='%23FBE3D2'/%3E%3Cg fill='none' stroke='%23E9A87E' stroke-width='1'%3E%3Cpath d='M0 8h32M0 16h32M0 24h32M8 0v32M16 0v32M24 0v32'/%3E%3C/g%3E%3Cpath d='M2 13h5l2-5 3 10 2-5h4' fill='none' stroke='%23DC5B12' stroke-width='2.2' stroke-linejoin='round' stroke-linecap='round'/%3E%3Cpath d='M2 25c4 0 4-6 8-6s4 6 8 6 4-6 8-6 4 6 6 6' fill='none' stroke='%230F5257' stroke-width='2'/%3E%3C/svg%3E">
+<style>
+:root{
+  --page:#F3F1EE; --paper:#FBE3D2; --ink:#2A211B;
+  --grid-minor:#EFB894; --grid-major:#D2691E; --rule:#CFC3B7;
+  --fhr:#DC5B12; --uc:#0F5257; --ecg:#3D3128; --muted:#6E6055;
+  --sans:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",sans-serif;
+  --mono:Consolas,"SF Mono",Menlo,"DejaVu Sans Mono",monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--page);color:var(--ink);font-family:var(--sans);
+  font-size:15px;line-height:1.55;
+  padding:26px 22px 64px;
+}
+.wrap{max-width:1120px;margin:0 auto}
+
+/* ---- identity strip ------------------------------------------------ */
+.top{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;
+     border-bottom:2px solid var(--ink);padding-bottom:9px;margin-bottom:4px}
+.mark{font-size:26px;font-weight:650;letter-spacing:-.021em;margin:0}
+.mark b{color:var(--fhr);font-weight:650}
+.sub{font-size:13.5px;color:var(--muted);margin:0}
+.prov{font-family:var(--mono);font-size:12px;color:var(--muted);
+      margin:7px 0 22px;display:flex;gap:20px;flex-wrap:wrap}
+.prov span{white-space:nowrap}
+.prov i{font-style:normal;color:var(--ink)}
+
+/* ---- instrument ---------------------------------------------------- */
+.instr{border:1px solid var(--rule);background:#fff}
+.strip{position:relative;border-bottom:1px solid var(--rule)}
+.strip:last-of-type{border-bottom:0}
+.striphead{display:flex;justify-content:space-between;align-items:baseline;
+  gap:12px;padding:9px 14px 8px;border-bottom:1px solid var(--rule);
+  background:#FAF7F4;flex-wrap:wrap}
+.striphead h2{font-size:14.5px;font-weight:640;margin:0;letter-spacing:-.008em}
+.striphead .unit{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+.readout{font-family:var(--mono);font-size:12.5px;color:var(--ink);
+         display:flex;gap:16px;flex-wrap:wrap}
+.readout em{font-style:normal;color:var(--muted)}
+canvas{display:block;width:100%;touch-action:none}
+.axis{padding:0;background:#fff}
+
+/* ---- cursor value chip --------------------------------------------- */
+.chip{position:absolute;top:0;pointer-events:none;background:var(--ink);
+  color:#FBE3D2;font-family:var(--mono);font-size:11.5px;padding:3px 7px;
+  border-radius:2px;white-space:nowrap;transform:translateX(-50%);opacity:0}
+
+/* ---- notes --------------------------------------------------------- */
+.notes{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:26px;
+       border:1px solid var(--rule);background:#fff}
+.notes section{padding:16px 18px}
+.notes section+section{border-left:1px solid var(--rule)}
+.notes h3{font-size:14px;font-weight:640;margin:0 0 9px}
+.notes ul{margin:0;padding-left:17px}
+.notes li{margin:0 0 7px;font-size:13.6px;line-height:1.5}
+.notes li:last-child{margin-bottom:0}
+.bar{height:3px;background:var(--fhr)}
+.bar.t{background:var(--uc)}
+
+.flag{border:1px solid var(--rule);border-left:3px solid var(--fhr);
+  background:#FDF3EC;padding:11px 14px;font-size:13.4px;margin:0}
+.section-gap{margin-top:26px}
+.hint{font-size:12.5px;color:var(--muted);margin:9px 2px 0}
+.empty{padding:26px 18px;color:var(--muted);font-size:14px}
+@media (max-width:760px){
+  .notes{grid-template-columns:1fr}
+  .notes section+section{border-left:0;border-top:1px solid var(--rule)}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <h1 class="mark">Feto<b>Pulse</b></h1>
+    <p class="sub">Capture viewer</p>
+  </div>
+  <div class="prov" id="prov"></div>
+
+  <div id="app"></div>
+
+</div>
+
+<script src="demo-data.js"></script>
+<script>
+(function () {
+  var D = window.FETOPULSE;
+  var app = document.getElementById('app');
+  if (!D) {
+    app.innerHTML = '<div class="instr"><p class="empty">No capture loaded. ' +
+      'Run <code>03_demo_bundle.py</code> to write <code>demo-data.js</code> ' +
+      'next to this page, then reload.</p></div>';
+    return;
+  }
+
+  var C = D.capture, css = getComputedStyle(document.documentElement);
+  var col = function (n) { return css.getPropertyValue(n).trim(); };
+  var INK = col('--ink'), PAPER = col('--paper'), GMIN = col('--grid-minor'),
+      GMAJ = col('--grid-major'), FHR = col('--fhr'), UC = col('--uc'),
+      ECG = col('--ecg'), MUTED = col('--muted');
+  var PAD = { l: 54, r: 14, t: 8, b: 8 };
+
+  /* ---------------- provenance strip ---------------- */
+  var prov = [
+    ['capture', C.stem],
+    ['duration', C.duration_s.toFixed(1) + ' s'],
+    ['rates', C.fs_pcg.toFixed(3) + ' Hz / ' + C.fs_uc.toFixed(4) + ' Hz'],
+    ['lines', C.total_lines.toLocaleString() + ', ' + C.malformed + ' malformed'],
+    ['integrity', C.c5_pass ? 'all checks passed' : 'CHECKS FAILED'],
+    ['commit', C.git_head]
+  ];
+  document.getElementById('prov').innerHTML = prov.map(function (p) {
+    return '<span>' + p[0] + ' <i>' + p[1] + '</i></span>';
+  }).join('');
+
+  /* ---------------- canvas helpers ---------------- */
+  function fit(cv, h) {
+    var r = window.devicePixelRatio || 1, w = cv.parentNode.clientWidth;
+    cv.width = Math.round(w * r); cv.height = Math.round(h * r);
+    cv.style.height = h + 'px';
+    var g = cv.getContext('2d'); g.setTransform(r, 0, 0, r, 0, 0);
+    return { g: g, w: w, h: h };
+  }
+  function paper(g, w, h, t1, ylo, yhi, ystep) {
+    var yt = PAD.t, yb = h - PAD.b, ih = yb - yt;
+    g.fillStyle = PAPER; g.fillRect(PAD.l, yt, w - PAD.l - PAD.r, ih);
+    var x0 = PAD.l, x1 = w - PAD.r, sx = (x1 - x0) / t1;
+    var maj = t1 > 600 ? 300 : (t1 > 240 ? 60 : 30), min = maj / 6;
+    g.lineWidth = 1;
+    for (var t = 0; t <= t1 + 1e-6; t += min) {
+      var isMaj = Math.abs(t / maj - Math.round(t / maj)) < 1e-6;
+      g.strokeStyle = isMaj ? GMAJ : GMIN; g.globalAlpha = isMaj ? .5 : .32;
+      var x = Math.round(x0 + t * sx) + .5;
+      g.beginPath(); g.moveTo(x, yt); g.lineTo(x, yb); g.stroke();
+    }
+    var sy = ih / (yhi - ylo), k = 0;
+    for (var v = ylo; v <= yhi + 1e-6; v += ystep, k++) {
+      var big = (k % 2) === 0;
+      g.strokeStyle = big ? GMAJ : GMIN; g.globalAlpha = big ? .45 : .28;
+      var y = Math.round(yb - (v - ylo) * sy) + .5;
+      g.beginPath(); g.moveTo(x0, y); g.lineTo(x1, y); g.stroke();
+      if (big) {
+        g.globalAlpha = 1; g.fillStyle = MUTED;
+        g.font = '11px ' + col('--mono'); g.textAlign = 'right';
+        g.fillText(String(Math.round(v)), PAD.l - 8, y + 3.5);
+      }
+    }
+    g.globalAlpha = 1;
+    return { x0: x0, x1: x1, sx: sx, sy: sy, ylo: ylo, yhi: yhi, yt: yt, yb: yb };
+  }
+  function band(g, m, h, lo, hi) {
+    g.fillStyle = 'rgba(15,82,87,.07)';
+    g.fillRect(m.x0, m.yb - (hi - m.ylo) * m.sy, m.x1 - m.x0, (hi - lo) * m.sy);
+  }
+  function px(m, t) { return m.x0 + t * m.sx; }
+  function py(m, h, v) { return m.yb - (v - m.ylo) * m.sy; }
+
+  /* ---------------- strip builder ---------------- */
+  var strips = [];
+  function strip(parent, title, unit, readout, h, draw, series) {
+    var el = document.createElement('div'); el.className = 'strip';
+    el.innerHTML = '<div class="striphead"><h2>' + title +
+      ' <span class="unit">' + unit + '</span></h2>' +
+      '<div class="readout">' + readout + '</div></div>';
+    var cv = document.createElement('canvas'); el.appendChild(cv);
+    var chip = document.createElement('div'); chip.className = 'chip';
+    el.appendChild(chip);
+    requestAnimationFrame(function () {
+      chip.style.top = (el.querySelector('.striphead').offsetHeight + 7) + 'px';
+    });
+    parent.appendChild(el);
+    var s = { cv: cv, chip: chip, h: h, draw: draw, series: series, el: el };
+    strips.push(s); return s;
+  }
+
+  /* ---------------- build ---------------- */
+  var T = C.duration_s;
+  var instr = document.createElement('div'); instr.className = 'instr';
+  app.appendChild(instr);
+
+  // FHR
+  if (D.fhr) {
+    var f = D.fhr, rel = (f.frac_high * 100).toFixed(0);
+    strip(instr, 'Fetal heart rate',
+      'beats per minute, ' + f.window_s + ' s window every ' + f.hop_s + ' s',
+      '<span><em>median</em> ' + f.median_high.toFixed(2) + '</span>' +
+      '<span><em>usable windows</em> ' + rel + '%</span>' +
+      '<span><em>windows</em> ' + f.n_windows + '</span>',
+      190,
+      function (g, w, h) {
+        var m = paper(g, w, h, T, 100, 190, 10);
+        band(g, m, h, 110, 160);
+        var hi = [], lo = [];
+        for (var i = 0; i < f.t.length; i++)
+          (f.conf[i] >= f.threshold ? hi : lo).push(i);
+        g.strokeStyle = 'rgba(110,96,85,.75)'; g.lineWidth = 1;
+        lo.forEach(function (i) {
+          var x = px(m, f.t[i]), y = py(m, h, f.bpm[i]);
+          g.beginPath(); g.moveTo(x - 2.6, y - 2.6); g.lineTo(x + 2.6, y + 2.6);
+          g.moveTo(x + 2.6, y - 2.6); g.lineTo(x - 2.6, y + 2.6); g.stroke();
+        });
+        g.fillStyle = FHR;
+        hi.forEach(function (i) {
+          g.beginPath();
+          g.arc(px(m, f.t[i]), py(m, h, f.bpm[i]), 1.9, 0, 6.284); g.fill();
+        });
+        return m;
+      },
+      function (t) {
+        var i = nearest(f.t, t); if (i < 0) return null;
+        var ok = f.conf[i] >= f.threshold;
+        return f.bpm[i].toFixed(1) + ' bpm  conf ' + f.conf[i].toFixed(2) +
+               (ok ? '' : '  (below ' + f.threshold + ')');
+      });
+  }
+
+  // UC
+  var u = D.uc, umin = Math.min.apply(null, u.v), umax = Math.max.apply(null, u.v);
+  var pad = (umax - umin) * .12 || 10;
+  var ulo = Math.floor((umin - pad) / 100) * 100, uhi = Math.ceil((umax + pad) / 100) * 100;
+  strip(instr, 'Uterine activity',
+    'sensor counts at ' + C.fs_uc.toFixed(2) + ' Hz',
+    '<span><em>resting</em> ' + Math.round(umin) + '</span>' +
+    '<span><em>peak</em> ' + Math.round(umax) + '</span>' +
+    '<span><em>detection</em> ' + (u.detector_run ? u.spans.length + ' contractions' : 'not run') + '</span>',
+    170,
+    function (g, w, h) {
+      var m = paper(g, w, h, T, ulo, uhi, Math.max(50, Math.round((uhi - ulo) / 8 / 50) * 50));
+      (D.cues || []).forEach(function (c) {
+        g.fillStyle = 'rgba(42,33,27,.05)';
+        g.fillRect(px(m, c.press[0]), m.yt, (c.press[1] - c.press[0]) * m.sx, m.yb - m.yt);
+      });
+      u.spans.forEach(function (s) {
+        g.fillStyle = 'rgba(15,82,87,.15)';
+        g.fillRect(px(m, s[0]), m.yt, (s[1] - s[0]) * m.sx, m.yb - m.yt);
+      });
+      if (u.baseline && u.detector_run) {
+        g.strokeStyle = 'rgba(15,82,87,.55)'; g.lineWidth = 1;
+        g.setLineDash([4, 3]); g.beginPath();
+        for (var i = 0; i < u.t.length; i++) {
+          var x = px(m, u.t[i]), y = py(m, h, u.baseline[i]);
+          i ? g.lineTo(x, y) : g.moveTo(x, y);
+        }
+        g.stroke(); g.setLineDash([]);
+      }
+      g.strokeStyle = UC; g.lineWidth = 1.5; g.lineJoin = 'round'; g.beginPath();
+      for (var j = 0; j < u.t.length; j++) {
+        var X = px(m, u.t[j]), Y = py(m, h, u.v[j]);
+        j ? g.lineTo(X, Y) : g.moveTo(X, Y);
+      }
+      g.stroke();
+      return m;
+    },
+    function (t) {
+      var i = nearest(u.t, t); return i < 0 ? null : Math.round(u.v[i]) + ' counts';
+    });
+
+  // shared axis
+  var ax = document.createElement('div'); ax.className = 'axis';
+  var axc = document.createElement('canvas'); ax.appendChild(axc);
+  instr.appendChild(ax);
+
+  // UC caveat
+  if (!u.detector_run) {
+    var fl = document.createElement('p'); fl.className = 'flag';
+    fl.style.marginTop = '0'; fl.style.borderTop = '0';
+    fl.textContent = u.reason; app.appendChild(fl);
+  }
+
+  var hint = document.createElement('p'); hint.className = 'hint';
+  hint.textContent = 'Both panels are drawn against one time axis from a single ' +
+    'capture on one hardware clock. Move the pointer across a panel to read both ' +
+    'channels at the same instant.';
+  app.appendChild(hint);
+
+  /* ---------------- ECG, separate capture ---------------- */
+  if (D.ecg) {
+    var e = D.ecg;
+    var wrapE = document.createElement('div');
+    wrapE.className = 'instr section-gap';
+    app.appendChild(wrapE);
+    var elo = Math.min.apply(null, e.v), ehi = Math.max.apply(null, e.v);
+    var ep = (ehi - elo) * .1 || 10;
+    var sE = strip(wrapE, 'Maternal ECG',
+      'separate capture, ' + e.fs.toFixed(0) + ' Hz, chest placement',
+      '<span><em>rate</em> ' + (e.mhr_bpm ? e.mhr_bpm.toFixed(1) + ' bpm' : 'not computed') + '</span>' +
+      '<span><em>beats</em> ' + (e.n_beats != null ? e.n_beats : 'detector not run') + '</span>' +
+      '<span><em>length</em> ' + e.duration_s.toFixed(1) + ' s</span>',
+      150,
+      function (g, w, h) {
+        var m = paper(g, w, h, e.duration_s, elo - ep, ehi + ep,
+                      Math.max(50, Math.round((ehi - elo) / 6 / 50) * 50));
+        g.strokeStyle = ECG; g.lineWidth = 1.1; g.beginPath();
+        for (var i = 0; i < e.t.length; i++) {
+          var x = px(m, e.t[i]), y = py(m, h, e.v[i]);
+          i ? g.lineTo(x, y) : g.moveTo(x, y);
+        }
+        g.stroke();
+        if (e.peaks) {
+          g.strokeStyle = FHR; g.lineWidth = 1.4;
+          e.peaks.forEach(function (t) {
+            var x = px(m, t);
+            g.beginPath(); g.moveTo(x, m.yt + 2); g.lineTo(x, m.yt + 11); g.stroke();
+          });
+        }
+        return m;
+      }, null);
+    sE.independent = true;
+    var pe = document.createElement('p'); pe.className = 'hint';
+    pe.textContent = 'Recorded separately from the trace above. The microcontroller ' +
+      'streams two channels at a time: adding this one would take the serial link to ' +
+      '102.6 percent of its capacity, so the two captures were taken minutes apart on ' +
+      'the same hardware.';
+    app.appendChild(pe);
+  }
+
+  /* ---------------- notes ---------------- */
+  var shows = [
+    'Fetal heart rate and uterine activity acquired at the same time, sharing one clock on the microcontroller.',
+    'Every fetal heart rate estimate with its own reliability. Filled marks cleared the ' + (D.fhr ? D.fhr.threshold : 0.45) + ' confidence threshold; crosses did not and are shown rather than hidden.',
+    'The uterine trace exactly as recorded, at ' + C.fs_uc.toFixed(2) + ' Hz.',
+    'Signals scored by the same code that was validated against annotated public datasets, unmodified.'
+  ];
+  var notShows = [
+    'Any physiological link between the two traces. The fetal heart sounds are a recording played through a speaker at the microphone, and the uterine trace is a hand press on a force sensor.',
+    'Deceleration timing. Reading a deceleration as early or late is the clinical purpose of pairing these two signals, and it is not demonstrated here.',
+    'A diagnosis of any kind. This is a research and educational prototype, not a medical device.',
+    'Live monitoring. The capture finishes first, then it is scored and drawn.'
+  ];
+  var n = document.createElement('div'); n.className = 'notes section-gap';
+  n.innerHTML =
+    '<section><div class="bar"></div><h3 style="margin-top:11px">What this capture shows</h3><ul>' +
+      shows.map(function (s) { return '<li>' + s + '</li>'; }).join('') + '</ul></section>' +
+    '<section><div class="bar t"></div><h3 style="margin-top:11px">What it does not show</h3><ul>' +
+      notShows.map(function (s) { return '<li>' + s + '</li>'; }).join('') + '</ul></section>';
+  app.appendChild(n);
+
+  if (!C.validated_protocol && C.profile_note) {
+    var pn = document.createElement('p');
+    pn.className = 'hint'; pn.style.marginTop = '14px';
+    pn.textContent = 'Capture profile "' + C.profile + '". ' + C.profile_note;
+    app.appendChild(pn);
+  }
+
+  /* ---------------- render + cursor ---------------- */
+  function nearest(arr, t) {
+    if (!arr.length) return -1;
+    var lo = 0, hi = arr.length - 1;
+    while (lo < hi) { var mid = (lo + hi) >> 1; if (arr[mid] < t) lo = mid + 1; else hi = mid; }
+    if (lo > 0 && Math.abs(arr[lo - 1] - t) < Math.abs(arr[lo] - t)) lo--;
+    return Math.abs(arr[lo] - t) > 6 ? -1 : lo;
+  }
+  var maps = [];
+  function renderAll() {
+    maps = strips.map(function (s) {
+      var c = fit(s.cv, s.h);
+      return { m: s.draw(c.g, c.w, c.h), w: c.w, h: c.h, s: s };
+    });
+    var a = fit(axc, 32), g = a.g, w = a.w;
+    g.clearRect(0, 0, w, 32);
+    var x0 = PAD.l, x1 = w - PAD.r, sx = (x1 - x0) / T;
+    g.strokeStyle = INK; g.lineWidth = 1;
+    g.beginPath(); g.moveTo(x0, .5); g.lineTo(x1, .5); g.stroke();
+    var maj = T > 600 ? 300 : (T > 240 ? 60 : 30);
+    var useMin = T > 600;
+    g.fillStyle = MUTED; g.font = '11px ' + col('--mono');
+    for (var t = 0; t <= T + 1e-6; t += maj) {
+      var x = x0 + t * sx;
+      g.beginPath(); g.moveTo(x, 0); g.lineTo(x, 5); g.stroke();
+      g.textAlign = (t === 0) ? 'left' : (t + maj > T + 1e-6 ? 'right' : 'center');
+      g.fillText(useMin ? (t / 60) + ':00' : String(t), x, 19);
+    }
+    g.textAlign = 'left';
+    g.fillText(useMin ? 'minutes since capture start' : 'seconds since capture start',
+               x0, 31);
+  }
+  function moveCursor(clientX, host) {
+    var r = host.getBoundingClientRect();
+    var w = host.clientWidth, x = clientX - r.left;
+    var t = (x - PAD.l) / ((w - PAD.l - PAD.r) / T);
+    strips.forEach(function (s, i) {
+      if (s.independent) return;
+      var v = s.series ? s.series(t) : null;
+      if (t < 0 || t > T || !v) { s.chip.style.opacity = 0; return; }
+      s.chip.style.opacity = 1;
+      s.chip.style.left = Math.min(Math.max(x, 60), w - 60) + 'px';
+      s.chip.textContent = t.toFixed(1) + ' s   ' + v;
+    });
+    renderAll();
+    maps.forEach(function (mm) {
+      if (mm.s.independent) return;
+      if (t < 0 || t > T) return;
+      var g = mm.s.cv.getContext('2d');
+      g.strokeStyle = 'rgba(42,33,27,.62)'; g.lineWidth = 1;
+      g.setLineDash([3, 3]); g.beginPath();
+      var X = Math.round(PAD.l + t * ((mm.w - PAD.l - PAD.r) / T)) + .5;
+      g.moveTo(X, PAD.t); g.lineTo(X, mm.h - PAD.b); g.stroke(); g.setLineDash([]);
+    });
+  }
+  strips.forEach(function (s) {
+    if (s.independent) return;
+    s.cv.addEventListener('pointermove', function (ev) { moveCursor(ev.clientX, s.cv); });
+    s.cv.addEventListener('pointerleave', function () {
+      strips.forEach(function (q) { q.chip.style.opacity = 0; });
+      renderAll();
+    });
+  });
+  renderAll();
+  var rt; window.addEventListener('resize', function () {
+    clearTimeout(rt); rt = setTimeout(renderAll, 120);
+  });
+})();
+</script>
+</body>
+</html>

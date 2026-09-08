@@ -484,6 +484,12 @@ def main():
                                      <= PREDICTED_ABS_SAMPLES)
                                 if r['err_corrected'].size else None),
         }, fh, indent=2)
+    det_out = os.path.join(RESULTS_DIR, f'{stem}_device_detections.csv')
+    with open(det_out, 'w') as fh:
+        fh.write('sample\n')
+        for s_ in np.asarray(det).astype(int):
+            fh.write(f'{s_}\n')
+    print(f"  detections -> {det_out}")   
     print(f"  results -> {out}")
     print("\n  Frozen code was IMPORTED. If any number here is disappointing,")
     print("  diagnose it — do not edit 02_qrs_detect.py or 03_qrs_evaluate.py.")
