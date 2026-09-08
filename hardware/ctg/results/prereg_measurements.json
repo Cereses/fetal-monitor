@@ -1,0 +1,387 @@
+{
+  "script": "/home/claude/fake/hardware/ctg/00_prereg_measurements.py",
+  "git_head": null,
+  "frozen": {
+    "fhr_detector": "/home/claude/fake/02_fhr_detector.py",
+    "uc_detector": "/home/claude/fake/uc_detector.py"
+  },
+  "purpose": "persist measurements cited in notes/prereg.md (5, 4.1, 7, 9.1, 12)",
+  "null_runs": {
+    "threshold": 0.45,
+    "captures": [
+      {
+        "capture": "mrisr_baseline_20260906_003840",
+        "file": "/mnt/user-data/uploads/mrisr_baseline_20260906_003840_pcg500.csv",
+        "n_samples": 45006,
+        "fs_achieved": 499.98889037017284,
+        "n_windows": 87,
+        "median_bpm": 146.33821181566034,
+        "bpm_iqr": 41.93021527890302,
+        "bpm_std": 24.318108664853945,
+        "median_conf": 0.057566432543665655,
+        "mean_conf": 0.05809554036733543,
+        "max_conf": 0.2982684286872106,
+        "frac_high": 0.0,
+        "pcg_std": 3.573263660613097,
+        "pcg_p2p": 101.0,
+        "spectrum": {
+          "peak_inband_hz": 47.79893791938852,
+          "peak_line_share_pct": 8.212053797097628,
+          "inband_pct_of_total": 75.16996200515975,
+          "db_50hz_over_bg": 4.095064138782613,
+          "method": "welch nperseg=2500; line = +-1 Hz around the strongest bin in 25-200 Hz; 50 Hz level = max in 49-51 Hz over median of 44-56 Hz excluding 49-51"
+        }
+      },
+      {
+        "capture": "mrisr_baseline_nofan_20260906_005014",
+        "file": "/mnt/user-data/uploads/mrisr_baseline_nofan_20260906_005014_pcg500.csv",
+        "n_samples": 45003,
+        "fs_achieved": 499.97777975291086,
+        "n_windows": 87,
+        "median_bpm": 129.3045982119597,
+        "bpm_iqr": 46.36668644427823,
+        "bpm_std": 25.44196745260217,
+        "median_conf": 0.03634860972499378,
+        "mean_conf": 0.0420087211424154,
+        "max_conf": 0.24357775375559723,
+        "frac_high": 0.0,
+        "pcg_std": 3.2349456609239975,
+        "pcg_p2p": 93.0,
+        "spectrum": {
+          "peak_inband_hz": 47.79787574437827,
+          "peak_line_share_pct": 8.383380698748528,
+          "inband_pct_of_total": 72.89022135881368,
+          "db_50hz_over_bg": 3.1198234916647976,
+          "method": "welch nperseg=2500; line = +-1 Hz around the strongest bin in 25-200 Hz; 50 Hz level = max in 49-51 Hz over median of 44-56 Hz excluding 49-51"
+        }
+      },
+      {
+        "capture": "mrisr_paired_multi_20260906_005816",
+        "file": "/mnt/user-data/uploads/mrisr_paired_multi_20260906_005816_pcg500.csv",
+        "n_samples": 45006,
+        "fs_achieved": 499.98889037017284,
+        "n_windows": 87,
+        "median_bpm": 149.99666711105183,
+        "bpm_iqr": 53.35748940295758,
+        "bpm_std": 26.003516544694737,
+        "median_conf": 0.05577203578444899,
+        "mean_conf": 0.040643064430758546,
+        "max_conf": 0.23969746833340072,
+        "frac_high": 0.0,
+        "pcg_std": 3.2770704079313018,
+        "pcg_p2p": 88.0,
+        "spectrum": {
+          "peak_inband_hz": 47.79893791938852,
+          "peak_line_share_pct": 8.58711717148345,
+          "inband_pct_of_total": 72.13653564370416,
+          "db_50hz_over_bg": 1.608985303811528,
+          "method": "welch nperseg=2500; line = +-1 Hz around the strongest bin in 25-200 Hz; 50 Hz level = max in 49-51 Hz over median of 44-56 Hz excluding 49-51"
+        }
+      }
+    ],
+    "total_windows": 261,
+    "total_high": 0,
+    "frac_high_pooled": 0.0
+  },
+  "seam_test": {
+    "design": "5 x 60 s synthetic S1/S2 doublet at 133.93 BPM, one transient mid-record, whole-record vs 60 s segmented calls matched on window centre",
+    "rows": [
+      {
+        "transient_x_peak": 2.0,
+        "n_matched": 280,
+        "median_abs_dbpm": 0.0,
+        "max_abs_dbpm": 0.0,
+        "max_abs_dconf": 0.00935977223500728,
+        "frac_windows_crossing_threshold": 0.0
+      },
+      {
+        "transient_x_peak": 20.0,
+        "n_matched": 280,
+        "median_abs_dbpm": 0.0,
+        "max_abs_dbpm": 0.0,
+        "max_abs_dconf": 0.01741208421354734,
+        "frac_windows_crossing_threshold": 0.0
+      },
+      {
+        "transient_x_peak": 100.0,
+        "n_matched": 280,
+        "median_abs_dbpm": 0.0,
+        "max_abs_dbpm": 0.0,
+        "max_abs_dconf": 0.019053554300418774,
+        "frac_windows_crossing_threshold": 0.0
+      },
+      {
+        "transient_x_peak": 1000.0,
+        "n_matched": 280,
+        "median_abs_dbpm": 0.0,
+        "max_abs_dbpm": 0.0,
+        "max_abs_dconf": 0.020497078446532813,
+        "frac_windows_crossing_threshold": 0.0
+      }
+    ]
+  },
+  "baseline_degeneracy": [
+    {
+      "record": "gold_1215s",
+      "n_samples": 4860,
+      "filter_size": 2400,
+      "baseline_distinct_values": 2039,
+      "detected": 7,
+      "expected": 7,
+      "confidence": "HIGH",
+      "rate_per_10min": 3.45679012345679
+    },
+    {
+      "record": "demo_90s",
+      "n_samples": 360,
+      "filter_size": 2400,
+      "baseline_distinct_values": 1,
+      "detected": 1,
+      "expected": 1,
+      "confidence": "HIGH",
+      "rate_per_10min": 6.666666666666666
+    }
+  ],
+  "press_consistency": [
+    {
+      "condition": "all identical",
+      "amplitudes": [
+        400.0,
+        400.0,
+        400.0,
+        400.0,
+        400.0,
+        400.0,
+        400.0
+      ],
+      "detected": 7,
+      "confidence": "HIGH",
+      "amp": 405.84274064378405
+    },
+    {
+      "condition": "+/-10% random",
+      "amplitudes": [
+        410.00763732837333,
+        431.77710407756604,
+        422.05485521961543,
+        378.0165751992473,
+        384.013302792898,
+        429.884275631701,
+        360.42122436524596
+      ],
+      "detected": 7,
+      "confidence": "HIGH",
+      "amp": 434.82942151332037
+    },
+    {
+      "condition": "+/-25% random",
+      "amplitudes": [
+        464.24568367655326,
+        459.4138857504093,
+        393.58699056874417,
+        360.6064853638627,
+        355.68512242015464,
+        350.97391753082496,
+        389.0152611765293
+      ],
+      "detected": 7,
+      "confidence": "HIGH",
+      "amp": 462.79407907051814
+    },
+    {
+      "condition": "+/-50% random",
+      "amplitudes": [
+        401.8193035831813,
+        421.39894082979697,
+        598.2001133737571,
+        517.0647676855012,
+        448.871691776465,
+        595.584059072754,
+        286.1234792942396
+      ],
+      "detected": 6,
+      "confidence": "HIGH",
+      "amp": 600.8073446470125
+    },
+    {
+      "condition": "one press 2x",
+      "amplitudes": [
+        400.0,
+        400.0,
+        800.0,
+        400.0,
+        400.0,
+        400.0,
+        400.0
+      ],
+      "detected": 7,
+      "confidence": "HIGH",
+      "amp": 738.3746406385025
+    },
+    {
+      "condition": "one press 3x",
+      "amplitudes": [
+        400.0,
+        400.0,
+        1200.0,
+        400.0,
+        400.0,
+        400.0,
+        400.0
+      ],
+      "detected": 1,
+      "confidence": "LOW",
+      "amp": 1104.4228159670358
+    },
+    {
+      "condition": "one press 0.5x",
+      "amplitudes": [
+        400.0,
+        400.0,
+        200.0,
+        400.0,
+        400.0,
+        400.0,
+        400.0
+      ],
+      "detected": 7,
+      "confidence": "HIGH",
+      "amp": 405.872503808545
+    },
+    {
+      "condition": "fade 500->250",
+      "amplitudes": [
+        500.0,
+        458.3333333333333,
+        416.6666666666667,
+        375.0,
+        333.33333333333337,
+        291.6666666666667,
+        250.0
+      ],
+      "detected": 7,
+      "confidence": "HIGH",
+      "amp": 463.6160232749088
+    },
+    {
+      "condition": "climb 250->500",
+      "amplitudes": [
+        250.0,
+        291.6666666666667,
+        333.3333333333333,
+        375.0,
+        416.66666666666663,
+        458.3333333333333,
+        500.0
+      ],
+      "detected": 7,
+      "confidence": "HIGH",
+      "amp": 463.8511187507368
+    },
+    {
+      "condition": "absolute 10 counts",
+      "amplitudes": [
+        10.0,
+        10.0,
+        10.0,
+        10.0,
+        10.0,
+        10.0,
+        10.0
+      ],
+      "detected": 7,
+      "confidence": "HIGH",
+      "amp": 16.913250955352623
+    },
+    {
+      "condition": "absolute 20 counts",
+      "amplitudes": [
+        20.0,
+        20.0,
+        20.0,
+        20.0,
+        20.0,
+        20.0,
+        20.0
+      ],
+      "detected": 7,
+      "confidence": "HIGH",
+      "amp": 25.89240616055645
+    },
+    {
+      "condition": "absolute 40 counts",
+      "amplitudes": [
+        40.0,
+        40.0,
+        40.0,
+        40.0,
+        40.0,
+        40.0,
+        40.0
+      ],
+      "detected": 7,
+      "confidence": "HIGH",
+      "amp": 45.70422700570635
+    },
+    {
+      "condition": "absolute 80 counts",
+      "amplitudes": [
+        80.0,
+        80.0,
+        80.0,
+        80.0,
+        80.0,
+        80.0,
+        80.0
+      ],
+      "detected": 7,
+      "confidence": "HIGH",
+      "amp": 85.9774358359881
+    },
+    {
+      "condition": "absolute 150 counts",
+      "amplitudes": [
+        150.0,
+        150.0,
+        150.0,
+        150.0,
+        150.0,
+        150.0,
+        150.0
+      ],
+      "detected": 7,
+      "confidence": "HIGH",
+      "amp": 155.6091455378181
+    },
+    {
+      "condition": "absolute 400 counts",
+      "amplitudes": [
+        400.0,
+        400.0,
+        400.0,
+        400.0,
+        400.0,
+        400.0,
+        400.0
+      ],
+      "detected": 7,
+      "confidence": "HIGH",
+      "amp": 405.90937199658254
+    },
+    {
+      "condition": "absolute 1000 counts",
+      "amplitudes": [
+        1000.0,
+        1000.0,
+        1000.0,
+        1000.0,
+        1000.0,
+        1000.0,
+        1000.0
+      ],
+      "detected": 7,
+      "confidence": "HIGH",
+      "amp": 1005.79067507214
+    }
+  ]
+}
