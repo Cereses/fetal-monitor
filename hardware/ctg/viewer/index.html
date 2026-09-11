@@ -65,6 +65,12 @@ canvas{display:block;width:100%;touch-action:none}
 .bar{height:3px;background:var(--fhr)}
 .bar.t{background:var(--uc)}
 
+.range{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);
+  font-size:12.5px;border:1px solid var(--rule);background:#fff;padding:3px 9px}
+.range b{font-weight:700;font-size:13.5px;letter-spacing:-.01em}
+.dot{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+.dot.in{background:#1E7A4B}.dot.out{background:#B3401A}
+.range em{font-style:normal;color:var(--muted)}
 .flag{border:1px solid var(--rule);border-left:3px solid var(--fhr);
   background:#FDF3EC;padding:11px 14px;font-size:13.4px;margin:0}
 .section-gap{margin-top:26px}
@@ -164,6 +170,26 @@ canvas{display:block;width:100%;touch-action:none}
   function px(m, t) { return m.x0 + t * m.sx; }
   function py(m, h, v) { return m.yb - (v - m.ylo) * m.sy; }
 
+  /* ---------------- reference range check ----------------
+     A factual comparison against a published range. NOT a health verdict:
+     fetal wellbeing is judged from baseline together with variability and
+     deceleration timing, and this system establishes none of those. */
+  var RANGES = {
+    fhr: { lo: 110, hi: 160, unit: 'bpm',
+           src: 'FIGO baseline range for fetal heart rate' },
+    mhr: { lo: 60,  hi: 100, unit: 'bpm',
+           src: 'resting adult heart rate range' }
+  };
+  function rangeChip(value, key) {
+    if (value == null || isNaN(value)) return '';
+    var R = RANGES[key], inside = value >= R.lo && value <= R.hi;
+    return '<span class="range" title="' + R.src + '">' +
+      '<span class="dot ' + (inside ? 'in' : 'out') + '"></span>' +
+      '<b>' + value.toFixed(1) + '</b> ' + R.unit +
+      ' <em>' + (inside ? 'within' : 'outside') + ' ' + R.lo + ' to ' + R.hi +
+      '</em></span>';
+  }
+
   /* ---------------- strip builder ---------------- */
   var strips = [];
   function strip(parent, title, unit, readout, h, draw, series) {
@@ -192,7 +218,7 @@ canvas{display:block;width:100%;touch-action:none}
     var f = D.fhr, rel = (f.frac_high * 100).toFixed(0);
     strip(instr, 'Fetal heart rate',
       'beats per minute, ' + f.window_s + ' s window every ' + f.hop_s + ' s',
-      '<span><em>median</em> ' + f.median_high.toFixed(2) + '</span>' +
+      rangeChip(f.median_high, 'fhr') +
       '<span><em>usable windows</em> ' + rel + '%</span>' +
       '<span><em>windows</em> ' + f.n_windows + '</span>',
       190,
@@ -292,8 +318,8 @@ canvas{display:block;width:100%;touch-action:none}
     var ep = (ehi - elo) * .1 || 10;
     var sE = strip(wrapE, 'Maternal ECG',
       'separate capture, ' + e.fs.toFixed(0) + ' Hz, chest placement',
-      '<span><em>rate</em> ' + (e.mhr_bpm ? e.mhr_bpm.toFixed(1) + ' bpm' : 'not computed') + '</span>' +
-      '<span><em>beats</em> ' + (e.n_beats != null ? e.n_beats : 'detector not run') + '</span>' +
+      (e.mhr_bpm ? rangeChip(e.mhr_bpm, 'mhr') : '<span><em>rate</em> not computed</span>') +
+      '<span><em>beats</em> ' + (e.n_beats != null ? e.n_beats + (e.peaks_are_reference ? ' annotated' : ' detected') : 'not marked') + '</span>' +
       '<span><em>length</em> ' + e.duration_s.toFixed(1) + ' s</span>',
       150,
       function (g, w, h) {
@@ -315,6 +341,11 @@ canvas{display:block;width:100%;touch-action:none}
         return m;
       }, null);
     sE.independent = true;
+    if (e.reason) {
+      var er = document.createElement('p'); er.className = 'flag';
+      er.style.marginTop = '0'; er.textContent = e.reason;
+      app.appendChild(er);
+    }
     var pe = document.createElement('p'); pe.className = 'hint';
     pe.textContent = 'Recorded separately from the trace above. The microcontroller ' +
       'streams two channels at a time: adding this one would take the serial link to ' +
@@ -343,6 +374,19 @@ canvas{display:block;width:100%;touch-action:none}
     '<section><div class="bar t"></div><h3 style="margin-top:11px">What it does not show</h3><ul>' +
       notShows.map(function (s) { return '<li>' + s + '</li>'; }).join('') + '</ul></section>';
   app.appendChild(n);
+
+  var rc = document.createElement('p');
+  rc.className = 'flag'; rc.style.marginTop = '18px';
+  rc.innerHTML = 'The coloured markers report whether a measured rate falls ' +
+    'inside a published reference range. They are not an assessment of health. ' +
+    'Fetal wellbeing is judged from the baseline rate together with its ' +
+    'variability and the timing of any decelerations against contractions, and ' +
+    'this system establishes none of those: the rate detector searches only ' +
+    'between ' + (D.fhr ? D.fhr.search_lo : 110) + ' and ' +
+    (D.fhr ? D.fhr.search_hi : 180) + ' beats per minute, so it cannot represent ' +
+    'a deceleration. A rate inside the range is not a healthy baby, and a rate ' +
+    'outside it is not an unhealthy one.';
+  app.appendChild(rc);
 
   if (!C.validated_protocol && C.profile_note) {
     var pn = document.createElement('p');

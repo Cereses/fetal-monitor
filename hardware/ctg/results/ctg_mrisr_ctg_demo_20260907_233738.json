@@ -1,0 +1,105 @@
+{
+  "stem": "mrisr_ctg_demo_20260907_233738",
+  "capture_json": "C:\\Users\\Jaydenn\\Documents\\fetal-monitor\\hardware\\ctg\\results\\mrisr_ctg_demo_20260907_233738.json",
+  "script": "C:\\Users\\Jaydenn\\Documents\\fetal-monitor\\hardware\\ctg\\02_ctg.py",
+  "git_head": "bbca67ab6258b1cdf15c1ae72c760e08220f4cc0",
+  "profile": "demo",
+  "validated_protocol": false,
+  "frozen": {
+    "fhr_detector": "C:\\Users\\Jaydenn\\Documents\\fetal-monitor\\02_fhr_detector.py",
+    "uc_detector": "C:\\Users\\Jaydenn\\Documents\\fetal-monitor\\uc_detector.py"
+  },
+  "fhr": {
+    "n_windows": 87,
+    "threshold": 0.45,
+    "frac_high": 1.0,
+    "median_bpm_high": 133.92559563486773,
+    "median_bpm_all": 133.92559563486773,
+    "median_conf": 0.8069975356069047,
+    "max_conf": 0.8872026016047669,
+    "whole_record_single_call": true
+  },
+  "uc": {
+    "n_samples": 360,
+    "record_over_baseline_win": 0.15,
+    "n_spans": 1,
+    "spans_s": [
+      [
+        11.626,
+        55.376
+      ]
+    ],
+    "confidence": "HIGH",
+    "analysable_frac": 1.0,
+    "rate_per_10min": 6.666666666666666,
+    "baseline_distinct_values": 1,
+    "validated_configuration": false,
+    "amp": 667.6219306666674,
+    "thr": 200.2865792000002
+  },
+  "cues": {
+    "n_cycles": 1,
+    "press_windows_s": [
+      [
+        10.012,
+        60.012
+      ]
+    ],
+    "hold_windows_s": [
+      [
+        25.012,
+        45.012
+      ]
+    ]
+  },
+  "criteria": {
+    "C1": {
+      "pass": true,
+      "frac_high": 1.0,
+      "rule": ">= 0.5 of windows >= 0.45",
+      "null_frac_high": 0.0
+    },
+    "C2": {
+      "pass": true,
+      "delta_bpm": 0.004404365132273824,
+      "reference": 133.93,
+      "tolerance": 3.0
+    },
+    "C3": {
+      "pass": null,
+      "source": null,
+      "fp": null,
+      "iou": [],
+      "evaluated": false
+    },
+    "C4": {
+      "hold": {
+        "n": 20,
+        "median_conf": 0.8417816296396132,
+        "mean_conf": 0.8059375944842031,
+        "p10_conf": 0.7050167841283376,
+        "frac_high": 1.0,
+        "median_bpm": 135.74359014574827
+      },
+      "rest": {
+        "n": 28,
+        "median_conf": 0.7999213487128749,
+        "mean_conf": 0.8075024746781463,
+        "p10_conf": 0.7587698594215742,
+        "frac_high": 1.0,
+        "median_bpm": 132.15565384233642
+      },
+      "threshold": null,
+      "prediction": "no systematic difference"
+    }
+  },
+  "diagnostics": {
+    "dominant_line_hz": 65.79853797271474,
+    "dominant_line_share_pct": 6.631781426268382,
+    "inband_pct_of_total": 99.58425675584135,
+    "db_50hz_over_bg": 4.150662642964764,
+    "cue_to_onset_offset_s": []
+  },
+  "plot": "plots\\ctg_mrisr_ctg_demo_20260907_233738.png",
+  "caption": "FHR: recorded fetal PCG played through a speaker. UC: hand-pressed force sensor. No physiological relationship exists between the two traces. This figure demonstrates concurrent acquisition on a shared time base only. It does not demonstrate deceleration detection."
+}

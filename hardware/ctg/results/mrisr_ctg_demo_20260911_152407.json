@@ -1,0 +1,137 @@
+{
+  "stem": "mrisr_ctg_demo_20260911_152407",
+  "stamp": "20260911_152407",
+  "tag": "demo",
+  "profile": "demo",
+  "validated_protocol": false,
+  "profile_note": "live demonstration. NOT the validated protocol. uc_detector MUST NOT be run on this: 90 s is 0.15x BASELINE_WIN_S and the rolling baseline degenerates to a constant. See prereg 12.",
+  "script": "C:\\Users\\Jaydenn\\Documents\\fetal-monitor\\hardware\\ctg\\01_capture.py",
+  "git_head": "bbca67ab6258b1cdf15c1ae72c760e08220f4cc0",
+  "header": "# mrisr_capture pcg=39@500 uc=35@4 decim=125 fs=500 att=11db uc=mean_of_125_as_sum",
+  "protocol": {
+    "baseline_s": 10.0,
+    "cycles": 1,
+    "ramp_s": 15.0,
+    "hold_s": 20.0,
+    "fall_s": 15.0,
+    "rest_s": 30.0,
+    "validated": false,
+    "note": "live demonstration. NOT the validated protocol. uc_detector MUST NOT be run on this: 90 s is 0.15x BASELINE_WIN_S and the rolling baseline degenerates to a constant. See prereg 12.",
+    "total_s": 90.0,
+    "n_cues": 5
+  },
+  "files": {
+    "pcg": "captures\\mrisr_ctg_demo_20260911_152407_pcg500.csv",
+    "uc": "captures\\contractions_20260911_152407_uc4hz.csv",
+    "cues": "captures\\cues_20260911_152407.csv",
+    "plot": "plots\\01_mrisr_ctg_demo_20260911_152407.png",
+    "pcg_bytes": 659168
+  },
+  "counts": {
+    "pcg": 45006,
+    "uc": 360,
+    "malformed": 0,
+    "total_lines": 45366,
+    "malformed_rate": 0.0
+  },
+  "timing": {
+    "wall_s": 90.00584888458252,
+    "pcg_span_s": 90.012,
+    "uc_span_s": 89.75,
+    "fs_pcg": 499.98889037017284,
+    "fs_uc": 4.0,
+    "dt_mean_us": 2000.0444395067216,
+    "dt_std_us": 9.449511045188872,
+    "n_gaps_2x": 0,
+    "largest_uc_gap_s": 0.2500010000000046,
+    "host_device_drift_s": -0.0061511154174809235
+  },
+  "signal": {
+    "pcg_mean": 1675.6128516197841,
+    "pcg_std": 770.639938101106,
+    "pcg_min": 0.0,
+    "pcg_max": 4095.0,
+    "pcg_p2p": 4095.0,
+    "pcg_peak_excursion": 2419.387148380216,
+    "uc_min": 1216.056,
+    "uc_max": 2212.888,
+    "uc_span": 996.8319999999999
+  },
+  "cues": [
+    {
+      "scheduled_s": 0.0,
+      "host_s": 4.76837158203125e-07,
+      "device_us": 0,
+      "phase": "BASELINE",
+      "cycle": 0
+    },
+    {
+      "scheduled_s": 10.0,
+      "host_s": 10.000105142593384,
+      "device_us": 10010000,
+      "phase": "RAMP",
+      "cycle": 1
+    },
+    {
+      "scheduled_s": 25.0,
+      "host_s": 25.00186324119568,
+      "device_us": 25012001,
+      "phase": "HOLD",
+      "cycle": 1
+    },
+    {
+      "scheduled_s": 45.0,
+      "host_s": 45.001699924468994,
+      "device_us": 45012001,
+      "phase": "FALL",
+      "cycle": 1
+    },
+    {
+      "scheduled_s": 60.0,
+      "host_s": 60.00144076347351,
+      "device_us": 60012001,
+      "phase": "REST",
+      "cycle": 1
+    }
+  ],
+  "c5": {
+    "pass": true,
+    "checks": [
+      {
+        "name": "PCG timestamps strictly increasing",
+        "pass": true,
+        "detail": "0 violations"
+      },
+      {
+        "name": "UC timestamps strictly increasing",
+        "pass": true,
+        "detail": "0 violations"
+      },
+      {
+        "name": "PCG fs within 0.1% of 500 Hz",
+        "pass": true,
+        "detail": "499.9889 Hz"
+      },
+      {
+        "name": "UC fs within 0.1% of 4 Hz",
+        "pass": true,
+        "detail": "4.0000 Hz"
+      },
+      {
+        "name": "largest UC gap under 5 s",
+        "pass": true,
+        "detail": "0.250 s"
+      },
+      {
+        "name": "protocol completed",
+        "pass": true,
+        "detail": "5/5 cues, 90.0/90 s"
+      }
+    ],
+    "tolerances": {
+      "fs_tolerance_frac": 0.001,
+      "max_uc_gap_s": 5.0
+    }
+  },
+  "detectors_run": false
+}
